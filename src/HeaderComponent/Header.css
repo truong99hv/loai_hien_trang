@@ -1,10 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Material+Icons);
 
+
+.header{
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .topHeader {
   height: 45px;
   background-color: #AD180D;
   width: 100%;
   position: relative;
+
 }
 
 .loginButton {
@@ -30,6 +37,7 @@
   display: flex;
   height: 111px;
   background-color: #da2a1c;
+  width: 100%;
 }
 
 .leftHeader {
@@ -38,27 +46,25 @@
 }
 
 .imgTop {
-  height: 100%;
-  object-fit: contain;
+  height: 80px;
 }
 
 .middleContainer {
   flex: 1 1;
   display: flex;
-  justify-content: center;
   align-items: center;
   
 }
 
 .middleContainer input {
-  width: 300px;
+  width: 50%;
   padding: 8px;
   border: 0;
-  height: 29px;
+  height: 45px;
   
 }
 
-.middleContainer button {
+.searchBox {
   height: 45px;
   padding: 8px;
   border: 0;
@@ -67,15 +73,27 @@
   background: #404f5a;
 }
 
+.dropdownMenu{
+  height: 45px;
+  padding: 8px;
+  border: 0;
+  width: 45px;
+  font-size: 24px;
+  background: none;
+  color:white;
+  display:none;
+}
 .middleContainer a{
   margin-left: 20px;
   color: white;
-  /* border-bottom:1px solid white; */
+  border-bottom:1px solid white;
 }
 .searchContainer {
   display: flex;
   align-items: center;
   height: 45px;
+  justify-content: center;
+  flex: 1 1;
 }
 
 .rightHeader {
@@ -92,13 +110,12 @@
   padding: 0 20px;
   border-left: 1px solid white;
   color: white;
+  text-decoration: none;
 }
 
 .rightHeader a span {
   font-size: 18px;
   font-weight: 550;
-  
-
 }
 svg path {
   stroke: white;
@@ -108,4 +125,16 @@ svg path {
   background-color: rgb(255, 196, 118);
   color: black !important;
   border-left: 1px solid rgb(255, 196, 118) !important;
+}
+
+@media only screen and (max-width: 960px) {
+  .rightHeader{
+    display:none;
+  }
+  .searchContainer span{
+    display: none;
+  }
+  .dropdownMenu{
+    display:block;
+  }
 }

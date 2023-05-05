@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {TopHeader, BottomHeader} from './Header';
-import "./App.css";
+import Header from './HeaderComponent/Header';
+import Main from './MainComponent/Main';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-<TopHeader/>
-<BottomHeader/>
+<Header/>
+<Main/>
 </>
 );
 
