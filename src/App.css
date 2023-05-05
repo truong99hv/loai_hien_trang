@@ -1,38 +1,111 @@
-.App {
-  text-align: center;
+@import url(https://fonts.googleapis.com/css?family=Material+Icons);
+
+.topHeader {
+  height: 45px;
+  background-color: #AD180D;
+  width: 100%;
+  position: relative;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.loginButton {
+  background-color: #AD180D;
+  border: 0;
+  color: white;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 64px;
+  padding: 0 16px;
+  font-family: "Roboto";
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.loginButton span {
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.bottomHeader {
   display: flex;
-  flex-direction: column;
+  height: 111px;
+  background-color: #da2a1c;
+}
+
+.leftHeader {
+  padding: 16px 0px;
+  padding-left: 24px;
+}
+
+.imgTop {
+  height: 100%;
+  object-fit: contain;
+}
+
+.middleContainer {
+  flex: 1 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.middleContainer input {
+  width: 300px;
+  padding: 8px;
+  border: 0;
+  height: 29px;
+  
+}
+
+.middleContainer button {
+  height: 45px;
+  padding: 8px;
+  border: 0;
+  width: 45px;
+  font-size: 24px;
+  background: #404f5a;
+}
+
+.middleContainer a{
+  margin-left: 20px;
+  color: white;
+  /* border-bottom:1px solid white; */
+}
+.searchContainer {
+  display: flex;
+  align-items: center;
+  height: 45px;
+}
+
+.rightHeader {
+  min-width: 300px;
+  height: 100%;
+  display: flex;
+  padding-right: 24px;
+}
+
+.rightHeader a {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 0 20px;
+  border-left: 1px solid white;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.rightHeader a span {
+  font-size: 18px;
+  font-weight: 550;
+  
+
+}
+svg path {
+  stroke: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.yellowButton {
+  background-color: rgb(255, 196, 118);
+  color: black !important;
+  border-left: 1px solid rgb(255, 196, 118) !important;
 }
