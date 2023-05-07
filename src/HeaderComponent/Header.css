@@ -87,6 +87,7 @@
   margin-left: 20px;
   color: white;
   border-bottom:1px solid white;
+  text-decoration: none;
 }
 .searchContainer {
   display: flex;
