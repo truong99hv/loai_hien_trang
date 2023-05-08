@@ -1,13 +1,12 @@
 .footerContainer{
     background: rgba(8, 1, 0, 0.03);
-    /* height: 300px; */
+    height: 2000px;
     width: 100%;
     padding-top: 16px;
 }
 
 h2{
     font-size:16px;
-    margin-bottom: 8px;
     margin-left: 8px;
     font-weight: 500;
 }
@@ -24,10 +23,12 @@ img{
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 12px;
+    margin: 8px 0px;
 }
 
 .flexItem{
-    width: 12.4%;
+    flex-basis: 3em;
+    min-width: 230px;
     
 }
 
@@ -37,4 +38,12 @@ li{
     justify-content: center;
     align-items: center;
     flex: 1 0 auto;
+    margin-left: 1px;
+    margin-bottom: 1px;
 }
+/* 
+@media only screen and (max-width: 960px) {
+    .flexItem{
+        flex-basis: 20%;
+    }
+  } */
