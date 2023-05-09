@@ -22,6 +22,7 @@ function Header() {
             <input type="text" placeholder="Tìm kiếm"></input>
             <button className="searchBox">
               <GrSearch />
+              
             </button>
             <a href="/">
               <span>Nâng cao</span>

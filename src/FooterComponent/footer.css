@@ -1,18 +1,17 @@
 .footerContainer{
     background: rgba(8, 1, 0, 0.03);
-    height: 2000px;
     width: 100%;
     padding-top: 16px;
+    float: left;
 }
 
 h2{
     font-size:16px;
-    margin-left: 8px;
+    margin-left:16px !important;
     font-weight: 500;
 }
 img{
     max-width: 100%;
-    /* object-fit: contain; */
     display: block;
     height: auto;
     max-height: 8rem;
@@ -41,9 +40,63 @@ li{
     margin-left: 1px;
     margin-bottom: 1px;
 }
-/* 
-@media only screen and (max-width: 960px) {
-    .flexItem{
-        flex-basis: 20%;
-    }
-  } */
+.bottomFooter{
+    color:white;
+}
+.gridContainer{
+    display:grid;
+    grid-template-columns: auto auto auto auto;
+}
+
+.gridColumn{
+    margin-right: 1px;
+    /* height: 300px; */
+    background: rgb(173, 24, 13);
+    padding: 24px;
+
+}
+p{
+    font-size: 14px;
+}
+
+.columnTitle{
+    margin-bottom: 24px;
+}
+
+.columnContent{
+    margin-bottom: 16px;
+    cursor: pointer;
+}
+
+.columnContent a{
+    border-bottom: 1px solid white;
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+}
+
+.underGridContainer{
+    background: #7b1b0e;
+
+    padding: 16px 32px;
+}
+
+h2{
+    margin:0;
+    margin-bottom: 16px;
+}
+
+.spanFooter{
+    margin-right: 16px;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.left{
+    border-bottom: 1px solid white;
+}
+
+.margin-16px{
+    margin-top: 16px;
+}
+

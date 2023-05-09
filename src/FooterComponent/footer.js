@@ -118,7 +118,52 @@ function Footer() {
           </a>
         </li>
       </ul>
-      
+      <div className="bottomFooter">
+        <div className="gridContainer">
+        <div className="gridColumn">
+          <p className="columnTitle">GIỚI THIỆU</p>
+          <div className="columnContent">
+          <a href="hoso/gioithieu">Hệ thống</a>
+          </div>
+          <div className="columnContent">
+          <a href="hoso/lienhe">Tài trợ</a>
+          </div>
+          
+        </div>
+        <div className="gridColumn">
+          <p className="columnTitle">THÔNG TIN - HƯỚNG DẪN</p>
+          <div className="columnContent">
+          <a href="/tintuc">Tin tức</a>
+          </div>
+          <div className="columnContent">
+          <a href="static/skv_wlp_user_guide.pdf">Tài liệu hướng dẫn tra cứu thông tin</a>
+          </div>
+          <div className="columnContent">
+          <a href="video-huong-dan">Video hướng dẫn tra cứu thông tin</a>
+          </div>
+          
+        </div>
+        <div className="gridColumn">
+          <p className="columnTitle">VĂN BẢN - TÀI LIỆU</p>
+          <div className="columnContent">
+          <a href="hoso/tailieu">Văn bản pháp luật</a>
+          </div>
+          
+        </div>
+        <div className="gridColumn">
+          <p className="columnTitle">HỖ TRỢ</p>
+          <div className="columnContent">
+          <a href="hoso/lienhe">Liên hệ</a>
+          </div>
+          
+        </div>
+        </div>
+        <div className="underGridContainer">
+          <h2>HỆ THỐNG BÁO CÁO VỀ HIỆN TRẠNG LOÀI NGUY CẤP QUÝ HIẾM ĐƯỢC ƯU TIÊN BẢO VỆ</h2>
+          <span className="left spanFooter">Điều khoản & Bảo mật</span> <span className="spanFooter">Bản quyền bởi Ban quản lý dự án WLP</span>
+          <p className="margin-16px">Được tài trợ bởi: Quỹ môi trường dự án toàn cầu (GEF) THÔNG QUA NGÂN HÀNG THẾ GIỚI (WB)</p>
+        </div>
+      </div>
     </div>
   );
 }

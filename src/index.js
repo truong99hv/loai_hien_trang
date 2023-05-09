@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import Search from "./SearchComponent/search";
 import Header from "./HeaderComponent/header";
 import Footer from "./FooterComponent/footer";
+import MainSearch from "./SearchComponent/MainSearchComponent/mainSearch";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>
     <Header />
-    <Search />
+    <MainSearch/>
     <Footer />
   </>
 );
