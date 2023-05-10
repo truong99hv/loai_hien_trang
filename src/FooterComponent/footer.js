@@ -159,7 +159,7 @@ function Footer() {
         </div>
         </div>
         <div className="underGridContainer">
-          <h2>HỆ THỐNG BÁO CÁO VỀ HIỆN TRẠNG LOÀI NGUY CẤP QUÝ HIẾM ĐƯỢC ƯU TIÊN BẢO VỆ</h2>
+          <h3>HỆ THỐNG BÁO CÁO VỀ HIỆN TRẠNG LOÀI NGUY CẤP QUÝ HIẾM ĐƯỢC ƯU TIÊN BẢO VỆ</h3>
           <span className="left spanFooter">Điều khoản & Bảo mật</span> <span className="spanFooter">Bản quyền bởi Ban quản lý dự án WLP</span>
           <p className="margin-16px">Được tài trợ bởi: Quỹ môi trường dự án toàn cầu (GEF) THÔNG QUA NGÂN HÀNG THẾ GIỚI (WB)</p>
         </div>
