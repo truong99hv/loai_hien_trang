@@ -1,5 +1,11 @@
 const endpoint = "https://loainguycap.ceid.gov.vn/api/"
-function getRoute(source) {
-    return endpoint + source;
+const routerObject = {
+    all: "loaicongbo?paginate=true&page=1&perpage=18",
+    domain:"https://loainguycap.ceid.gov.vn/"
+}
+
+
+function getRoute(param) {
+    return endpoint + routerObject[param];
 }
 export default getRoute;
