@@ -4,12 +4,13 @@ import RenderSideBar from "../SidebarComponent/sidebar";
 // import getRoute from "../../router";
 import { useEffect, useState } from "react";
 import GridView from "./gridView";
-import TableView from "./tableView"
+import TableView from "./tableView";
 import getDataFromApi from "../../DataHandle/getDataFromApi";
+import getRoute from "../../router";
 function MainSearch() {
   return (
     <>
-      <GetData/>
+      <GetData />
     </>
   );
 }
@@ -17,19 +18,23 @@ function MainSearch() {
 function GetData() {
   let [tab, setTab] = useState(0);
   let [data, setData] = useState([]);
+  let [total, setTotal] = useState(0);
   let onSetTab = (tab) => setTab(tab);
   let content = null;
   useEffect(() => {
-    const returnData = async() => {
+    const returnData = async () => {
       try {
         const Data = await getDataFromApi("all");
         const data = Data.list;
+        const count = Data.pagination.total;
+        setTotal(count);
         const newData = [];
         data.forEach((item) => {
           let loai_hien_trang = null;
           let sach_dos = null;
           let iucns = null;
-          let images =  "/static/img/image4.5aecb9b5.png";
+          let images = getRoute("domain")+ "/static/img/image4.5aecb9b5.png";
+
           if (item.loai_hien_trang) {
             loai_hien_trang = item.loai_hien_trang.ten;
           }
@@ -40,7 +45,7 @@ function GetData() {
             iucns = item.iucns[0].ma_danh_muc;
           }
           if (item.attachments.length > 0) {
-            images =  + item.attachments[0].path;
+            images = getRoute("domain")+item.attachments[0].path;
           }
           newData.push({
             name: item.ten,
@@ -53,14 +58,15 @@ function GetData() {
             iucns: iucns,
           });
         });
+        console.log(newData);
         setData(newData);
       } catch (error) {
         console.log("ERROR: " + error);
       }
-    }
-    returnData()
+    };
+    returnData();
   }, []);
-  
+
   switch (tab) {
     case 0:
       content = <GridView items={data} />;
@@ -68,18 +74,15 @@ function GetData() {
     case 1:
       content = <TableView items={data} />;
       break;
-      default:
+    default:
   }
   return (
     <div>
-     <div className="navbar">
-            <button className="navbarButton navbarButtonActive" onClick={() => onSetTab(0)}><span className="navbarButtonText">LƯỚI</span></button>
-            <button className="navbarButton" onClick={() => onSetTab(1)}><span className="navbarButtonText">BẢNG</span></button>
-            <button className="navbarButton"><span className="navbarButtonText">BẢN ĐỒ</span></button>
-            <button className="navbarButton"><span className="navbarButtonText">THỐNG KÊ</span></button>
-        </div>
-      <div className="main">{content}</div>
+      <RenderNavBar onClick={onSetTab} />
       <RenderSideBar />
+      <div className="main">
+        <h2 className="total"><b>Kết quả: ({total})</b></h2>
+        {content}</div>
     </div>
   );
 }

@@ -1,5 +1,34 @@
-.main{
-    float:right;
-    width: calc(100% - 300px);
-    height: 1000px;
+.main {
+  float: right;
+  width: calc(100% - 300px);
+  height: 1000px;
 }
+.total {
+  font-size: 18px;
+  margin: 18px;
+}
+.flexImgSearch {
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-position: center center;
+}
+.flexContainerSearch {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.flexItemSearch {
+  min-width: 33%;
+  margin: 8px 0px;
+  padding-left:16px;
+}
+.flexItemContent {
+    border: 1px solid black;
+}
+.flexItemContent p{
+    margin:8px 
+}
+
