@@ -1,6 +1,6 @@
 .main {
   float: right;
-  width: calc(100% - 300px);
+  width: calc(100% - 350px);
   height: 1000px;
 }
 .total {
@@ -9,7 +9,7 @@
 }
 .flexImgSearch {
   width: 100%;
-  height: 300px;
+  height: 256px;
   background-size: cover;
   background-position: center center;
 }
@@ -18,6 +18,7 @@
   flex-wrap: wrap;
   width: 100%;
   justify-content: space-between;
+  padding-right:16px;
 }
 
 .flexItemSearch {
@@ -31,4 +32,50 @@
 .flexItemContent p{
     margin:8px 
 }
-
+.flexMiddleSearch p{
+  font-size: 16px;
+}
+.flexBottomSearch{
+  display: flex;
+  /* justify-content: left; */
+  align-items: center;
+  padding: 8px 0px;
+}
+.leftFlexBottomSearch{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  font-size: 32px;
+  margin:0px 8px;
+  width: 70%;
+}
+.leftFlexBottomSearch span{
+  font-size: 16px;
+}
+.rightFlexBottomSearch{
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+.iconFlexBottomSearch{
+  border-radius: 50%;
+  height: 44px;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:white;
+  margin: 0px 8px;
+}
+.pink{
+  background-color: #e91e63;
+}
+.orange{
+  background-color: #f44336;
+}
+hr{
+  background-color: #c9c9c9;
+  height: 2px;
+  margin: 40px 16px 16px 16px;
+}

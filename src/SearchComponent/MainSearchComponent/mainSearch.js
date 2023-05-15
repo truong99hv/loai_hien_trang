@@ -19,21 +19,30 @@ function GetData() {
   let [tab, setTab] = useState(0);
   let [data, setData] = useState([]);
   let [total, setTotal] = useState(0);
+  let [displayItems, setDisplayItems] = useState(18);
+  let [currentPage, setCurrentPage] = useState(1);
+  let [isInitialRender, setIsInitialRender] = useState(true); 
   let onSetTab = (tab) => setTab(tab);
+  let onsetPage =() =>setCurrentPage(currentPage+1);
   let content = null;
+
   useEffect(() => {
+    if (isInitialRender) {
+      setIsInitialRender(false); // Cập nhật biến flag
+      return;
+    }
     const returnData = async () => {
       try {
-        const Data = await getDataFromApi("all");
-        const data = Data.list;
+        const Data = await getDataFromApi(currentPage);
+        // const data = Data.list;
         const count = Data.pagination.total;
         setTotal(count);
         const newData = [];
-        data.forEach((item) => {
+        Data.list.forEach((item) => {
           let loai_hien_trang = null;
           let sach_dos = null;
           let iucns = null;
-          let images = getRoute("domain")+ "/static/img/image4.5aecb9b5.png";
+          let images = getRoute("domain") + "/static/img/image4.5aecb9b5.png";
 
           if (item.loai_hien_trang) {
             loai_hien_trang = item.loai_hien_trang.ten;
@@ -45,7 +54,7 @@ function GetData() {
             iucns = item.iucns[0].ma_danh_muc;
           }
           if (item.attachments.length > 0) {
-            images = getRoute("domain")+item.attachments[0].path;
+            images = getRoute("domain") + item.attachments[0].path;
           }
           newData.push({
             name: item.ten,
@@ -59,13 +68,13 @@ function GetData() {
           });
         });
         console.log(newData);
-        setData(newData);
+        setData([...data, ...newData]);
       } catch (error) {
         console.log("ERROR: " + error);
       }
     };
     returnData();
-  }, []);
+  }, [currentPage, isInitialRender]);
 
   switch (tab) {
     case 0:
@@ -81,8 +90,13 @@ function GetData() {
       <RenderNavBar onClick={onSetTab} />
       <RenderSideBar />
       <div className="main">
-        <h2 className="total"><b>Kết quả: ({total})</b></h2>
-        {content}</div>
+        <h2 className="total">
+          <b>Kết quả: ({total})</b>
+        </h2>
+        {content}
+
+      <button onClick={onsetPage}>Load More </button>
+      </div>
     </div>
   );
 }

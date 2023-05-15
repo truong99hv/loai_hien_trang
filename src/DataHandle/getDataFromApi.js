@@ -1,7 +1,6 @@
 import getRoute from "../router"
-async function getDataFromApi() {
-  
-  const response = await fetch(getRoute("all"));
+async function getDataFromApi(param) {
+  const response = await fetch(getRoute(param));
   const jsonData = await response.json();
   return jsonData;
 }
