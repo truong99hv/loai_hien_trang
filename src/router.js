@@ -10,6 +10,7 @@ function getRoute(param) {
     }
     if(typeof(param) === "number"){
         return endpoint + "loaicongbo?paginate=true&page="+param+"&perpage=18";
+        // return "https://loainguycap.ceid.gov.vn/api/loaicongbo?paginate=true&page="+param+"&perpage=18&loaihientrang_ids[]=3";
     }
 
     return endpoint + routerObject[param];

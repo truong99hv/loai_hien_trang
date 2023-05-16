@@ -39,9 +39,12 @@ function SixItems({ items }) {
                 ) : (
                   <>
                     <div className="leftFlexBottomSearch">
-                      <AiOutlineArrowDown />
+                      <AiOutlineArrowDown style={{
+                        color: 'red',
+                      }} />
+
+                      <span>Giảm dần</span>
                     </div>
-                    <span>Giảm dần</span>
                   </>
                 )}
                 <div className="rightFlexBottomSearch">
@@ -78,73 +81,77 @@ function SixItems({ items }) {
 }
 
 function OtherItems({ items }) {
-  if (items.length !== 0) {
-    return (
-      <>
-        <hr />
-        <h2>
-          <b>Kết quả khác</b>
-        </h2>
-        <div className="flexContainerSearch">
-          {items.map((item, id) => (
-            <div key={id} className="flexItemSearch">
-              <div className="flexItemContent">
-                <div className="flexMiddleSearch">
-                  <p>
-                    {item.kingdom} - {item.phylumn}
-                  </p>
-                  <p>
-                    <b>{item.name}</b>
-                  </p>
-                  <p>
-                    <i>{item.ten_khoa_hoc}</i>
-                  </p>
-                </div>
-                <div className="flexBottomSearch">
-                  {item.loai_hien_trang == null ? (
-                    <>
-                      <div className="leftFlexBottomSearch">
-                        <AiOutlineQuestionCircle />
-                        <span>Chưa xác định</span>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="leftFlexBottomSearch">
-                        <AiOutlineArrowDown />
-                      </div>
+  if(items.length == 0){
+    return
+  }
+  return (
+    <>
+      <hr />
+      <h2>
+        <b>Kết quả khác</b>
+      </h2>
+      <div className="flexContainerSearch">
+        {items.map((item, id) => (
+          <div key={id} className="flexItemSearch">
+            <div className="flexItemContent">
+              <div className="flexMiddleSearch">
+                <p>
+                  {item.kingdom} - {item.phylumn}
+                </p>
+                <p>
+                  <b>{item.name}</b>
+                </p>
+                <p>
+                  <i>{item.ten_khoa_hoc}</i>
+                </p>
+              </div>
+              <div className="flexBottomSearch">
+                {item.loai_hien_trang == null ? (
+                  <>
+                    <div className="leftFlexBottomSearch">
+                      <AiOutlineQuestionCircle />
+                      <span>Chưa xác định</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="leftFlexBottomSearch">
+                      <AiOutlineArrowDown style={{
+                        color: 'red',
+                      }} />
+
                       <span>Giảm dần</span>
-                    </>
-                  )}
-                  <div className="rightFlexBottomSearch">
-                    {item.sach_dos != null && item.iucns != null ? (
-                      <>
-                        <div className="iconFlexBottomSearch pink">
-                          {item.sach_dos}
-                        </div>
-                        <div className="iconFlexBottomSearch orange">
-                          {item.iucns}
-                        </div>
-                      </>
-                    ) : item.sach_do != null && item.iucns == null ? (
+                    </div>
+                  </>
+                )}
+                <div className="rightFlexBottomSearch">
+                  {item.sach_dos != null && item.iucns != null ? (
+                    <>
                       <div className="iconFlexBottomSearch pink">
                         {item.sach_dos}
                       </div>
-                    )  : item.sach_do == null && item.iucns != null ? (
-                      <div className="iconFlexBottomSearch pink">
+                      <div className="iconFlexBottomSearch orange">
                         {item.iucns}
                       </div>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
+                    </>
+                  ) : item.sach_do != null && item.iucns == null ? (
+                    <div className="iconFlexBottomSearch pink">
+                      {item.sach_dos}
+                    </div>
+                  ) : item.sach_do == null && item.iucns != null ? (
+                    <div className="iconFlexBottomSearch pink">
+                      {item.iucns}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      </>
-    );
-  }
+          </div>
+        ))}
+      </div>
+    </>
+  );
 }
 export default GridView;
