@@ -88,7 +88,7 @@ function GetData() {
   return (
     <>
       <RenderNavBar onClick={onSetTab} active={tab} />
-      <RenderSideBar  />
+      <RenderSideBar />
       <div className="main">
         <h2 className="total">
           <b>Kết quả: ({total})</b>

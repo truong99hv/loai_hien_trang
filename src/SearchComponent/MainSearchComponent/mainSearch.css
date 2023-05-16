@@ -21,12 +21,14 @@
 }
 
 .flexItemSearch {
-  min-width: 33%;
+  width: 33%;
   margin: 8px 0px;
   padding-left:16px;
+  min-height: 160px;
 }
 .flexItemContent {
     border: 1px solid black;
+    height: 100%;
 }
 .flexItemContent p{
     margin:8px 
@@ -36,7 +38,7 @@
 }
 .flexBottomSearch{
   display: flex;
-  /* justify-content: left; */
+  justify-content: space-between;
   align-items: center;
   padding: 8px 0px;
 }
@@ -46,13 +48,11 @@
   align-items: center;
   font-size: 32px;
   margin:0px 8px;
-  width: 70%;
 }
 .leftFlexBottomSearch span{
   font-size: 16px;
 }
 .rightFlexBottomSearch{
-  width: 30%;
   display: flex;
   align-items: center;
   justify-content: right;
@@ -65,7 +65,7 @@
   align-items: center;
   justify-content: center;
   color:white;
-  margin: 0px 8px;
+  margin-right:6px;
 }
 .pink{
   background-color: #e91e63;
