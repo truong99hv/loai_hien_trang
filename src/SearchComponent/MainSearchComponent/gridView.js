@@ -1,4 +1,5 @@
 import { AiOutlineQuestionCircle, AiOutlineArrowDown } from "react-icons/ai";
+import "./gridView.css";
 function GridView({ items }) {
   return <SixItems items={items} />;
 }
@@ -32,16 +33,22 @@ function SixItems({ items }) {
                 {item.loai_hien_trang == null ? (
                   <>
                     <div className="leftFlexBottomSearch">
-                      <AiOutlineQuestionCircle />
+                      <AiOutlineQuestionCircle
+                        style={{
+                          color: "rgb(208, 213, 214)",
+                        }}
+                      />
                       <span>Chưa xác định</span>
                     </div>
                   </>
                 ) : (
                   <>
                     <div className="leftFlexBottomSearch">
-                      <AiOutlineArrowDown style={{
-                        color: 'red',
-                      }} />
+                      <AiOutlineArrowDown
+                        style={{
+                          color: "red",
+                        }}
+                      />
 
                       <span>Giảm dần</span>
                     </div>
@@ -67,8 +74,7 @@ function SixItems({ items }) {
                     </div>
                   ) : (
                     <></>
-                  )
-                  }
+                  )}
                 </div>
               </div>
             </div>
@@ -81,8 +87,8 @@ function SixItems({ items }) {
 }
 
 function OtherItems({ items }) {
-  if(items.length == 0){
-    return
+  if (items.length === 0) {
+    return;
   }
   return (
     <>
@@ -109,16 +115,23 @@ function OtherItems({ items }) {
                 {item.loai_hien_trang == null ? (
                   <>
                     <div className="leftFlexBottomSearch">
-                      <AiOutlineQuestionCircle />
+                      <AiOutlineQuestionCircle
+                        style={{
+                          color: "rgb(208, 213, 214)",
+                          backgroundColor: "red",
+                        }}
+                      />
                       <span>Chưa xác định</span>
                     </div>
                   </>
                 ) : (
                   <>
                     <div className="leftFlexBottomSearch">
-                      <AiOutlineArrowDown style={{
-                        color: 'red',
-                      }} />
+                      <AiOutlineArrowDown
+                        style={{
+                          color: "red",
+                        }}
+                      />
 
                       <span>Giảm dần</span>
                     </div>

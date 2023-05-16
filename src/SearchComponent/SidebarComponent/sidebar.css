@@ -1,6 +1,7 @@
 .sidebarContainer{
     width: 350px;
     height: 2000px;
-    background-color: green;
+    padding: 16px;
     float: left;
+    border-right: 1px solid rgb(208, 213, 214);;
 }

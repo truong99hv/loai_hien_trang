@@ -1,86 +1,6 @@
-.main {
-  float: right;
-  width: calc(100% - 350px);
-}
-.total {
-  font-size: 18px;
-  margin: 18px;
-}
-.flexImgSearch {
-  width: 100%;
-  height: 256px;
-  background-size: cover;
-  background-position: center center;
-}
-.flexContainerSearch {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  justify-content: space-between;
-  padding-right:16px;
-}
-
-.flexItemSearch {
-  width: 33%;
-  margin: 8px 0px;
-  padding-left:16px;
-  min-height: 160px;
-}
-.flexItemContent {
-    border: 1px solid black;
-    height: 100%;
-}
-.flexItemContent p{
-    margin:8px 
-}
-.flexMiddleSearch p{
-  font-size: 16px;
-}
-.flexBottomSearch{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0px;
-}
-.leftFlexBottomSearch{
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  font-size: 32px;
-  margin:0px 8px;
-}
-.leftFlexBottomSearch span{
-  font-size: 16px;
-}
-.rightFlexBottomSearch{
-  display: flex;
-  align-items: center;
-  justify-content: right;
-}
-.iconFlexBottomSearch{
-  border-radius: 50%;
-  height: 44px;
-  width: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color:white;
-  margin-right:6px;
-}
-.pink{
-  background-color: #e91e63;
-}
-.orange{
-  background-color: #f44336;
-}
-hr{
-  background-color: #c9c9c9;
-  height: 2px;
-  margin: 40px 16px 16px 16px;
-}
-
 .buttonLoadMore{
   text-align: center;
+  margin-bottom: 10px;
 }
 
 .buttonLoadMore a{
@@ -88,4 +8,5 @@ hr{
   border-bottom: 1px solid black;
   font-size: 18px;
   color: black;
+
 }

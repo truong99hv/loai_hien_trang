@@ -1,7 +1,6 @@
 import "./mainSearch.css";
 import RenderNavBar from "../NavbarComponent/navbar";
 import RenderSideBar from "../SidebarComponent/sidebar";
-// import getRoute from "../../router";
 import { useEffect, useState } from "react";
 import GridView from "./gridView";
 import TableView from "./tableView";
