@@ -7,8 +7,6 @@ function RenderNavBar({ onClick, active }) {
       return "navbarButtonActive";
     }
   }
-  console.log(active);
-
   return (
     <>
       <div className="navbar">
