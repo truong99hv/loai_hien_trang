@@ -16,7 +16,6 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    justify-content: space-between;
     padding-right:16px;
   }
   
@@ -73,7 +72,7 @@
   .orange{
     background-color: #f44336;
   }
-  hr{
+  .hrGridView{
     background-color: #c9c9c9;
     height: 2px;
     margin: 40px 16px 16px 16px;

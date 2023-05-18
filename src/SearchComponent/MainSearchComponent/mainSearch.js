@@ -6,6 +6,7 @@ import GridView from "./gridView";
 import TableView from "./tableView";
 import getDataFromApi from "../../DataHandle/getDataFromApi";
 import getRoute from "../../DataHandle/router";
+import { debounce } from "lodash";
 function MainSearch() {
   return (
     <>
@@ -37,6 +38,12 @@ function RenderSideBarFunction({ tab }) {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [dataFilter, setDataFilter] = useState("");
+  const debouncedSetDataFilter = debounce((filter) => {
+    console.log("Debounced callback - dataFilter:", filter); // Thêm console.log ở đây
+    setDataFilter(filter);
+    setCurrentPage(1);
+  }, 2000); // Thời gian chờ debounce (ms)
+
   const onSetFilter = (control) => (e) => {
     
     const isChecked = e.target.checked;
@@ -52,10 +59,13 @@ function RenderSideBarFunction({ tab }) {
         [control]: prevFilterList[control].filter((item) => item !== value),
       }));
     }
+    
   };
+
   useEffect(() => {
+    debouncedSetDataFilter.cancel();
     const dataFilter = convertObject(filterList);
-    setDataFilter(dataFilter);
+    debouncedSetDataFilter(dataFilter);
     setCurrentPage(1);
   }, [filterList]);
   return (
@@ -69,13 +79,16 @@ function GetData({ tab, currentPage, setCurrentPage, dataFilter }) {
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
   const [displayItems, setDisplayItems] = useState(18);
+  const [loading, setLoading] = useState(true);
   // const [dataFilter, setDataFilter] = useState("");
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
       try {
         // setDataFilter(convertObject(filterList));
         const Data = await getDataFromApi(currentPage, dataFilter);
         const count = Data.pagination.total;
+        setLoading(false);
         setTotal(count);
         const newData = [];
         Data.list.forEach((item) => {
@@ -141,13 +154,16 @@ function GetData({ tab, currentPage, setCurrentPage, dataFilter }) {
     default:
       break;
   }
-
+  if(loading){
+    return <div className="container loading"></div>;
+  }
+  else {
   return (
     <div className="main">
       {content}
-
     </div>
   );
+  }
 }
 
 function convertObject(object) {

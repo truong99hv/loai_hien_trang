@@ -11,7 +11,7 @@ function GridView({ items, total, onsetPage, currentPage }) {
       <SixItems items={sixItems} />
       {otherItems.length > 0 && (
         <>
-          <hr />
+          <hr className="hrGridView" />
           <h2>
             <b>Kết quả khác</b>
           </h2>

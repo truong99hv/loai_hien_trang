@@ -4,6 +4,7 @@ const routerObject = {
     loaihientrang:"loaihientrangs",
     redbook:"danhmuccha?ma_danh_mucs[]=REDBOOK",
     iucn:"danhmuccha?ma_danh_mucs[]=IUCN",
+    provinces:"provinces",
 }
 
 

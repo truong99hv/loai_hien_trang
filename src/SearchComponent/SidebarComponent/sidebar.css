@@ -1,7 +1,29 @@
 .sidebarContainer{
     width: 350px;
-    height: 2000px;
+    /* height: 2000px; */
     padding: 16px;
     float: left;
+    text-align: left;
     border-right: 1px solid rgb(208, 213, 214);;
+}
+
+.hrSideBar{
+    background-color: rgba(0,0,0,.1215686275);
+    height: 3px;
+}
+
+.ulSideBar p{
+    font-size: 24px;
+}
+.ulSideBar input{
+    margin: 10px;
+    transform: scale(1.5); /* Tăng kích thước checkbox */
+}
+
+.ulSideBar li{
+    cursor: pointer;
+}
+
+.ulSideBar li:hover{
+    background-color:grey;
 }

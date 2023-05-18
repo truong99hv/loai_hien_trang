@@ -26,20 +26,17 @@ h2{
 }
 
 .flexItem{
-    flex-basis: 3em;
     min-width: 230px;
-    
-}
-
-li{
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1 0 auto;
+    flex: 1 0 3em;
     margin-left: 1px;
     margin-bottom: 1px;
+    
 }
+
 .bottomFooter{
     color:white;
 }
