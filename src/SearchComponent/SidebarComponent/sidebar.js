@@ -127,7 +127,7 @@ function RenderSideBar({ onSetFilter }) {
           <p>IUCN</p>
           {iucn.length > 0 &&
             iucn.map((item) => (
-              <label  key={item.id} htmlFor={`iucn-${item.id}`}>
+              <label  htmlFor={`iucn-${item.id}`}>
               <li>
                 <input
                 id={`iucn-${item.id}`}

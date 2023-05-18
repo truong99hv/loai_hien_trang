@@ -38,12 +38,6 @@ function RenderSideBarFunction({ tab }) {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [dataFilter, setDataFilter] = useState("");
-  const debouncedSetDataFilter = debounce((filter) => {
-    console.log("Debounced callback - dataFilter:", filter); // Thêm console.log ở đây
-    setDataFilter(filter);
-    setCurrentPage(1);
-  }, 2000); // Thời gian chờ debounce (ms)
-
   const onSetFilter = (control) => (e) => {
     
     const isChecked = e.target.checked;
@@ -61,11 +55,9 @@ function RenderSideBarFunction({ tab }) {
     }
     
   };
-
   useEffect(() => {
-    debouncedSetDataFilter.cancel();
-    const dataFilter = convertObject(filterList);
-    debouncedSetDataFilter(dataFilter);
+    const filter = convertObject(filterList);
+    setDataFilter(filter);
     setCurrentPage(1);
   }, [filterList]);
   return (
@@ -121,7 +113,6 @@ function GetData({ tab, currentPage, setCurrentPage, dataFilter }) {
                     });
                   });
           
-                  // setData([...data, ...newData]);
                   if(currentPage===1){
                     setData(() => [...newData]);
                   }
@@ -129,12 +120,15 @@ function GetData({ tab, currentPage, setCurrentPage, dataFilter }) {
                     setData((prevData) => [...prevData, ...newData]);
                   }
                   
-                  // setData((prevData) => [...newData]);
       } catch (error) {
         console.log("ERROR: " + error);
       }
     };
-    fetchData();
+    const debouncedData = debounce(fetchData, 500)
+    debouncedData();
+    return () => {
+      debouncedData.cancel(); // Hủy bỏ debounce khi component bị unmount
+    };
   }, [currentPage, dataFilter]);
 
   const onsetPage = (e) => {
@@ -157,13 +151,16 @@ function GetData({ tab, currentPage, setCurrentPage, dataFilter }) {
   if(loading){
     return <div className="container loading"></div>;
   }
-  else {
-  return (
+  else if(total===0) {
+    return <div className="main">
+      <h1>Không có dữ liệu</h1>
+    </div>
+  }
+  else  return (
     <div className="main">
       {content}
     </div>
   );
-  }
 }
 
 function convertObject(object) {
