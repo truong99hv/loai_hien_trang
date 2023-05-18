@@ -7,10 +7,10 @@ import TableView from "./tableView";
 import getDataFromApi from "../../DataHandle/getDataFromApi";
 import getRoute from "../../DataHandle/router";
 import { debounce } from "lodash";
-function MainSearch() {
+function MainSearch({search}) {
   return (
     <>
-      <MainContainer />
+      <MainContainer search={search} />
     </>
   );
 }
@@ -23,7 +23,7 @@ function MainContainer(){
   };
   return (
     <>
-      <RenderNavBar onClick={onSetTab} active={tab} />
+      <RenderNavBar onClick={onSetTab} active={tab}  />
       <RenderSideBarFunction tab={tab} />
     </>
   );
@@ -39,7 +39,6 @@ function RenderSideBarFunction({ tab }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [dataFilter, setDataFilter] = useState("");
   const onSetFilter = (control) => (e) => {
-    
     const isChecked = e.target.checked;
     const value = e.target.value;
     if (isChecked) {

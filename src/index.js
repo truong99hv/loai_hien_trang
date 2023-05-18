@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -6,13 +6,15 @@ import Header from "./HeaderComponent/header";
 import Footer from "./FooterComponent/footer";
 import MainSearch from "./SearchComponent/MainSearchComponent/mainSearch";
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <>
-    <Header />
-    <MainSearch/>
+function App() {
+  const [search,setSearch] =useState("");
+  return <>
+    <Header setSearch={setSearch}/>
+    <MainSearch search={search}/>
     <Footer />
   </>
-);
+}
+root.render(<App />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
