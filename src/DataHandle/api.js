@@ -7,7 +7,6 @@ const routerObject = {
     provinces:"provinces",
 }
 
-
 function getRoute(param, filter) {
     if(filter===undefined){
         filter="";

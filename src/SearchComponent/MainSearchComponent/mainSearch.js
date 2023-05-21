@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import GridView from "./gridView";
 import TableView from "./tableView";
 import getDataFromApi from "../../DataHandle/getDataFromApi";
-import getRoute from "../../DataHandle/router";
+import getRoute from "../../DataHandle/api";
 import { debounce } from "lodash";
 function MainSearch({search}) {
   return (
@@ -76,7 +76,6 @@ function GetData({ tab, currentPage, setCurrentPage, dataFilter }) {
     setLoading(true);
     const fetchData = async () => {
       try {
-        // setDataFilter(convertObject(filterList));
         const Data = await getDataFromApi(currentPage, dataFilter);
         const count = Data.pagination.total;
         setLoading(false);

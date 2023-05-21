@@ -1,9 +1,12 @@
+import { useContext } from "react";
 import "./navbar.css";
 import { BsFillGrid3X3GapFill, BsMap, BsBarChartLine } from "react-icons/bs";
 import { FaBars } from "react-icons/fa";
-function RenderNavBar({ onClick, active }) {
+import { DataContext } from "../../DataHandle/DataContext";
+function RenderNavBar() {
+  const { tab, setTab } = useContext(DataContext);
   function checkActive(param) {
-    if (param === active) {
+    if (param === tab) {
       return "navbarButtonActive";
     }
   }
@@ -12,22 +15,29 @@ function RenderNavBar({ onClick, active }) {
       <div className="navbar">
         <button
           className={"navbarButton " + checkActive(0)}
-          onClick={() => onClick(0)}
+          onClick={() => setTab(0)}
         >
           <BsFillGrid3X3GapFill />
           <span className="navbarButtonText">LƯỚI</span>
         </button>
-        <button className={"navbarButton " + checkActive(1)} 
-        onClick={() => onClick(1)}
+        <button
+          className={"navbarButton " + checkActive(1)}
+          onClick={() => setTab(1)}
         >
           <FaBars />
           <span className="navbarButtonText">BẢNG</span>
         </button>
-        <button className="navbarButton">
+        <button
+          className={"navbarButton " + checkActive(2)}
+          onClick={() => setTab(2)}
+        >
           <BsMap />
           <span className="navbarButtonText">BẢN ĐỒ</span>
         </button>
-        <button className="navbarButton">
+        <button
+          className={"navbarButton " + checkActive(3)}
+          onClick={() => setTab(3)}
+        >
           <BsBarChartLine />
           <span className="navbarButtonText">THỐNG KÊ</span>
         </button>

@@ -1,7 +1,17 @@
 import { GrSearch } from "react-icons/gr";
 import { FaBars } from "react-icons/fa";
 import "./header.css";
+import { useContext, useState } from "react";
+import { DataContext } from "../DataHandle/DataContext";
 function Header() {
+  const {setDataFilter} = useContext(DataContext);
+  const handleClick = () =>{
+    setDataFilter((prevFilterList) => prevFilterList + "&search="+inputValue);
+  }
+  const [inputValue, setInputValue] = useState('');
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
   return (
     <div className="header">
       <div className="topHeader">
@@ -19,8 +29,8 @@ function Header() {
         </div>
         <div className="middleContainer">
           <div className="searchContainer">
-            <input type="text" placeholder="Tìm kiếm"></input>
-            <button className="searchBox">
+            <input type="text" placeholder="Tìm kiếm" onChange={handleInputChange}></input>
+            <button className="searchBox" onClick={handleClick}>
               <GrSearch />
               
             </button>

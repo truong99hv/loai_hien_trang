@@ -1,9 +1,7 @@
-function TableView({ items }) {
+function TableView() {
     return (
       <div>
-        {items.map((item, id) => (
-          <li key={id}>{item.sach_dos}</li>
-        ))}
+       TableView
       </div>
     );
   }
