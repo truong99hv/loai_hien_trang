@@ -4,6 +4,7 @@ import "./header.css";
 import { useContext, useState } from "react";
 import { DataContext } from "../DataHandle/DataContext";
 function Header() {
+  console.log(1);
   const {setDataFilter} = useContext(DataContext);
   const handleClick = () =>{
     setDataFilter((prevFilterList) => prevFilterList + "&search="+inputValue);
@@ -21,11 +22,14 @@ function Header() {
       </div>
       <div className="bottomHeader">
         <div className="leftHeader">
+          <a href="/search">
           <img
             src="https://loainguycap.ceid.gov.vn/static/img/logoColor.e5de23ce.png"
             alt="Logo"
             className="imgTop"
           ></img>
+          </a>
+          
         </div>
         <div className="middleContainer">
           <div className="searchContainer">
@@ -34,7 +38,7 @@ function Header() {
               <GrSearch />
               
             </button>
-            <a href="/">
+            <a href="/search">
               <span>Nâng cao</span>
             </a>
           </div>
@@ -43,7 +47,7 @@ function Header() {
           </button>
         </div>
         <div className="rightHeader">
-          <a href="/bangtin">
+          <a href="/tintuc">
             <span>Bản tin</span>
           </a>
           <a href="/gioithieu">

@@ -1,27 +1,43 @@
 import { DataProvider } from "./DataHandle/DataContext";
 import Footer from "./FooterComponent/footer";
 import Header from "./HeaderComponent/header";
-// import MainSearch from "./SearchComponent/MainSearchComponent/mainSearch";
-// import RenderNavBar from "./SearchComponent/NavbarComponent/navbar";
-// import RenderSideBar from "./SearchComponent/SidebarComponent/sidebar";
 import { MainSearchV2 } from "./SearchComponent/MainSearchComponent/mainSearchv2";
-// function App() {
-//     return <>
-//       <Header/>
-//       <MainSearch/>
-//       <Footer />
-//     </>
-//   }
-
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Tintuc } from "./TintucComponent/tintuc";
 function App() {
   return (
     <div>
       <DataProvider>
-        <Header />
-        <MainSearchV2/>
-        <Footer />
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={<MainSearchV2/>} />
+            <Route path="/search" element={<MainSearchV2 />} />
+            <Route path="/tintuc" element={<Tintuc/>}/>
+
+          </Routes>
+          <Footer />
+        </Router>
       </DataProvider>
     </div>
   );
 }
 export default App;
+
+// function App() {
+//   return (
+
+//     <Router>
+//       <Header/>
+//       <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/about" element={<About />} />
+//         <Route path="*" element={<NotFound />} />
+//       </Routes>
+
+//     </Router>
+//   );
+// }
+
+// export default App;
