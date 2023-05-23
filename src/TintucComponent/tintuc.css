@@ -1,0 +1,16 @@
+.titleTintuc {
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+.titleTintuc h1 {
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.titleTintuc hr {
+  height: 4px;
+  width: 240px;
+  background-color: red;
+  border-radius: 10px;
+}
