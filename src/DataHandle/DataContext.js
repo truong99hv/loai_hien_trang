@@ -7,6 +7,7 @@ import { debounce } from "lodash";
 export const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
+  console.log("render-DataProvider");
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -19,6 +20,7 @@ export const DataProvider = ({ children }) => {
   };
   // const [dataFilter, setDataFilter] = useState("");
   useEffect(() => {
+    console.log("render-useEffect");
     setLoading(true);
     const fetchData = async () => {
       try {

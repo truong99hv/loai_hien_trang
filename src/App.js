@@ -8,18 +8,18 @@ import { Tintuc } from "./TintucComponent/tintuc";
 function App() {
   return (
     <div>
-      <DataProvider>
-        <Router>
+      <Router>
+        <DataProvider>
           <Header />
           <Routes>
-            <Route path="/" element={<MainSearchV2/>} />
+            <Route path="/" element={<MainSearchV2 />} />
             <Route path="/search" element={<MainSearchV2 />} />
-            <Route path="/tintuc" element={<Tintuc/>}/>
+            <Route path="/tintuc" element={<Tintuc />} />
 
           </Routes>
           <Footer />
-        </Router>
-      </DataProvider>
+        </DataProvider>
+      </Router>
     </div>
   );
 }

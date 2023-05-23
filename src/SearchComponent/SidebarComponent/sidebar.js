@@ -1,9 +1,11 @@
 import "./sidebar.css";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import getDataFromApi from "../../DataHandle/getDataFromApi";
-import React, {  useContext, useEffect, useState } from "react";
+import React, {  useCallback, useContext, useEffect, useState, memo } from "react";
 import { DataContext } from "../../DataHandle/DataContext";
-const RenderSideBar = React.memo(({ onSetFilter }) =>{
+const RenderSideBar = memo(({ onSetFilter }) =>{
+  
+  console.log('render-siderbar')
   const [loaihientrang, setLoaihientrang] = useState([]);
   const [provinces, setProvinces] = useState([]);
   const [redbook, setRedbook] = useState([]);
@@ -71,7 +73,6 @@ const RenderSideBar = React.memo(({ onSetFilter }) =>{
         <hr className="hrSideBar"/>
         <ul className="ulSideBar">
           <p>Hiện trạng loài</p>
-          {console.log("render1")}
           {loaihientrang.length > 0 &&
             loaihientrang.map((item) => ( 
                 <label  key={`loaihientrang-${item.id}`} htmlFor={`loaihientrang-${item.id}`}>
@@ -146,7 +147,8 @@ const RenderSideBar = React.memo(({ onSetFilter }) =>{
   );
 });
 
-export const RenderSideBarFunction = () => {
+export const RenderSideBarFunction = memo(() => {
+  console.log('render-parent-siderbar')
   const [filterList, setFilterList] = useState({
     "loaihientrang_ids[]": [],
     "province_ids[]": [],
@@ -156,7 +158,7 @@ export const RenderSideBarFunction = () => {
   });
   const { setCurrentPage, setDataFilter } = useContext(DataContext);
 
-  const onSetFilter = (control) => (e) => {
+  const onSetFilter = useCallback((control) => (e) => {
     const isChecked = e.target.checked;
     const value = e.target.value;
     if (isChecked) {
@@ -171,7 +173,7 @@ export const RenderSideBarFunction = () => {
       }));
     }
     
-  };
+  });
 
   useEffect(() => {
     const filter = convertObject(filterList);
@@ -187,7 +189,7 @@ export const RenderSideBarFunction = () => {
   }, [filterList, setCurrentPage, setDataFilter]);
 
   return <RenderSideBar onSetFilter={onSetFilter} />;
-};
+});
 
 
 function convertObject(object) {

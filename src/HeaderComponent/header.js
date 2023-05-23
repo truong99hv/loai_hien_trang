@@ -1,17 +1,17 @@
 import { GrSearch } from "react-icons/gr";
 import { FaBars } from "react-icons/fa";
 import "./header.css";
-import { useContext, useState } from "react";
+import { useContext, useState, memo } from "react";
 import { DataContext } from "../DataHandle/DataContext";
-function Header() {
+const Header = memo(() => {
   console.log("renderHeader");
-  const {setDataFilter} = useContext(DataContext);
-  const handleClick = () =>{
+  const { setDataFilter } = useContext(DataContext);
+  const handleClick = () => {
     setDataFilter((prevFilterList) => {
-      if (prevFilterList.indexOf("&search")===-1) {
+      if (prevFilterList.indexOf("&search") === -1) {
         return prevFilterList + "&search=" + inputValue;
       } else {
-        return prevFilterList.substring(0,prevFilterList.indexOf("&search")) + "&search="+ inputValue;
+        return prevFilterList.substring(0, prevFilterList.indexOf("&search")) + "&search=" + inputValue;
       }
     });
   }
@@ -29,20 +29,20 @@ function Header() {
       <div className="bottomHeader">
         <div className="leftHeader">
           <a href="/search">
-          <img
-            src="https://loainguycap.ceid.gov.vn/static/img/logoColor.e5de23ce.png"
-            alt="Logo"
-            className="imgTop"
-          ></img>
+            <img
+              src="https://loainguycap.ceid.gov.vn/static/img/logoColor.e5de23ce.png"
+              alt="Logo"
+              className="imgTop"
+            ></img>
           </a>
-          
+
         </div>
         <div className="middleContainer">
           <div className="searchContainer">
             <input type="text" placeholder="Tìm kiếm" onChange={handleInputChange}></input>
             <button className="searchBox" onClick={handleClick}>
               <GrSearch />
-              
+
             </button>
             <a href="/search">
               <span>Nâng cao</span>
@@ -69,6 +69,6 @@ function Header() {
       </div>
     </div>
   );
-}
+})
 
 export default Header;
