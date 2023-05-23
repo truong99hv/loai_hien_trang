@@ -71,7 +71,7 @@ const RenderSideBar = React.memo(({ onSetFilter }) =>{
         <hr className="hrSideBar"/>
         <ul className="ulSideBar">
           <p>Hiện trạng loài</p>
-          {console.log("render1")};
+          {console.log("render1")}
           {loaihientrang.length > 0 &&
             loaihientrang.map((item) => ( 
                 <label  key={`loaihientrang-${item.id}`} htmlFor={`loaihientrang-${item.id}`}>
@@ -180,7 +180,7 @@ export const RenderSideBarFunction = () => {
       if (prevFilterList.indexOf("&search")===-1) {
         return filter
       } else {
-        return filter + prevFilterList.substring(prevFilterList.indexOf("&search"));
+        return filter + prevFilterList.substring(prevFilterList.lastIndexOf("&search"));
       }
     });
     setCurrentPage(1);

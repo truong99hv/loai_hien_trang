@@ -4,9 +4,16 @@ import "./header.css";
 import { useContext, useState } from "react";
 import { DataContext } from "../DataHandle/DataContext";
 function Header() {
+  console.log("renderHeader");
   const {setDataFilter} = useContext(DataContext);
   const handleClick = () =>{
-    setDataFilter((prevFilterList) => prevFilterList + "&search="+inputValue);
+    setDataFilter((prevFilterList) => {
+      if (prevFilterList.indexOf("&search")===-1) {
+        return prevFilterList + "&search=" + inputValue;
+      } else {
+        return prevFilterList.substring(0,prevFilterList.indexOf("&search")) + "&search="+ inputValue;
+      }
+    });
   }
   const [inputValue, setInputValue] = useState('');
   const handleInputChange = (event) => {
