@@ -1,6 +1,7 @@
 .sidebarContainer{
     width: 350px;
-    /* height: 2000px; */
+    height: 100%;
+    min-height: 1750px;
     padding: 16px;
     float: left;
     text-align: left;
@@ -12,8 +13,14 @@
     height: 3px;
 }
 
+.ulSideBar{
+    cursor: pointer;
+    margin: 10px 0px;
+}
 .ulSideBar p{
     font-size: 24px;
+    display: flex;
+    align-items: center;
 }
 .ulSideBar input{
     margin: 10px;

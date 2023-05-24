@@ -1,33 +1,39 @@
 import { useState, useEffect, createContext } from "react";
-import getDataFromApi from "./getDataFromApi";
-import getRoute from "./api";
+import getDataFromApi from "../components/getDataFromApi";
+import getRoute from "../const/api";
 import { debounce } from "lodash";
-
 
 export const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
-  console.log("render-DataProvider");
+  // console.log("render-DataProvider");
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loadingFirst, setLoadingFirst] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [dataFilter, setDataFilter] = useState("");
   const [tab, setTab] = useState(0);
+
   const onsetPage = (e) => {
     e.preventDefault();
     setCurrentPage(currentPage + 1);
   };
-  // const [dataFilter, setDataFilter] = useState("");
   useEffect(() => {
-    console.log("render-useEffect");
-    setLoading(true);
+    if(currentPage===1){
+    setLoadingFirst(true);
+  }
+
+    setLoadingMore(true);
+
     const fetchData = async () => {
       try {
         // setDataFilter(convertObject(filterList));
         const Data = await getDataFromApi(currentPage, dataFilter);
         const count = Data.pagination.total;
-        setLoading(false);
+        setLoadingFirst(false);
+
+        setLoadingMore(false);
         setTotal(count);
         const newData = [];
         Data.list.forEach((item) => {
@@ -69,15 +75,28 @@ export const DataProvider = ({ children }) => {
         console.log("ERROR: " + error);
       }
     };
-    const debouncedData = debounce(fetchData, 500)
+    const debouncedData = debounce(fetchData, 500);
     debouncedData();
     return () => {
       debouncedData.cancel(); // Hủy bỏ debounce khi component bị unmount
     };
   }, [currentPage, dataFilter]);
 
-return (
-    <DataContext.Provider value={{ data, total,currentPage, setCurrentPage, onsetPage, loading, tab, setTab, setDataFilter }}>
+  return (
+    <DataContext.Provider
+      value={{
+        data,
+        total,
+        currentPage,
+        setCurrentPage,
+        onsetPage,
+        loadingFirst,
+        tab,
+        setTab,
+        setDataFilter,
+        loadingMore,
+      }}
+    >
       {children}
     </DataContext.Provider>
   );

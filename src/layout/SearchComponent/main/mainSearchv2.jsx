@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { DataContext } from "../../DataHandle/DataContext";
+import { DataContext } from "../../../context/DataContext";
 import GridView from "./gridView";
 import TableView from "./tableView";
-import RenderNavBar from "../NavbarComponent/navbar";
-import {RenderSideBarFunction} from "../SidebarComponent/sidebar";
+import RenderNavBar from "../navbar/navbar";
+import { UseDataContextSideBar } from "../sidebar/sidebar";
 
 export const MainSearchV2 = () => {
-  const {tab} = useContext(DataContext);
+  const { tab } = useContext(DataContext);
   let content = null;
   switch (tab) {
     case 0:
@@ -21,9 +21,10 @@ export const MainSearchV2 = () => {
   }
   return (
     <>
-      <RenderNavBar />
-      <RenderSideBarFunction />
-      {content}
+
+        <RenderNavBar />
+        <UseDataContextSideBar  />
+        {content}
     </>
   );
 };

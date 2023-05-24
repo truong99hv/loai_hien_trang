@@ -3,12 +3,16 @@ import React from "react";
 import "./gridView.css";
 import "./mainSearch.css";
 import { useContext } from "react";
-import { DataContext } from "../../DataHandle/DataContext";
+import { DataContext } from "../../../context/DataContext";
 function GridView() {
-  const { data, currentPage, onsetPage, total, loading } = useContext(DataContext);
+  const { data, currentPage, onsetPage, total, loadingFirst, loadingMore } = useContext(DataContext);
+  console.log("render-gridView");
   let items = data;
   const sixItems = items.slice(0, 6);
   const otherItems = items.slice(6);
+  if(loadingFirst){
+    return <div className="main container-loader"><div className="loader"></div></div>
+  }
   return (
     <div className="main">
       <h2 className="total">
@@ -26,19 +30,20 @@ function GridView() {
             <b>Kết quả khác</b>
           </h2>
           <div className="flexContainerSearch">
-            {loading ? (<div className="container loading"></div>)
-              : (
+            {
                 
                   otherItems.map((item, index) => (
                     <OtherItems key={index} item={item} />
                   ))
-                )
+                
             }
+           
           </div>
+          {loadingMore && <div className="container-loader"><div className="loader"></div></div>}
         </div>
       ) : null}
       <div className="buttonLoadMore">
-        {currentPage * 18 < total && (
+        {currentPage * 18 < total && !loadingMore && (
           <a href="/" onClick={onsetPage}>
             Tải thêm
           </a>
@@ -116,7 +121,6 @@ const sixItem = ({ item }) => {
 };
 
 const otherItem = ({ item }) => {
-
   return (
     <div className="flexItemSearch">
       <div className="flexItemContent">

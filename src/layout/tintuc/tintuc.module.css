@@ -14,3 +14,11 @@
   background-color: red;
   border-radius: 10px;
 }
+
+.count{
+  width: 100%;
+  font-size:16px;
+  padding: 8px;
+  margin: 16px 0px;
+  border: 1px solid black;
+}

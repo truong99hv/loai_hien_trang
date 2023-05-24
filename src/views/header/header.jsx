@@ -2,20 +2,26 @@ import { GrSearch } from "react-icons/gr";
 import { FaBars } from "react-icons/fa";
 import "./header.css";
 import { useContext, useState, memo } from "react";
-import { DataContext } from "../DataHandle/DataContext";
-const Header = memo(() => {
+import { DataContext } from "../../context/DataContext";
+import {Link} from "react-router-dom";
+const HeaderRender = memo((props) => {
   console.log("renderHeader");
-  const { setDataFilter } = useContext(DataContext);
+  // const { setDataFilter } = useContext(DataContext);
   const handleClick = () => {
-    setDataFilter((prevFilterList) => {
+    props.setDataFilter((prevFilterList) => {
       if (prevFilterList.indexOf("&search") === -1) {
         return prevFilterList + "&search=" + inputValue;
       } else {
-        return prevFilterList.substring(0, prevFilterList.indexOf("&search")) + "&search=" + inputValue;
+        return (
+          prevFilterList.substring(0, prevFilterList.indexOf("&search")) +
+          "&search=" +
+          inputValue
+        );
       }
     });
-  }
-  const [inputValue, setInputValue] = useState('');
+  };
+  
+  const [inputValue, setInputValue] = useState("");
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -35,40 +41,47 @@ const Header = memo(() => {
               className="imgTop"
             ></img>
           </a>
-
         </div>
         <div className="middleContainer">
           <div className="searchContainer">
-            <input type="text" placeholder="Tìm kiếm" onChange={handleInputChange}></input>
+            <input
+              type="text"
+              placeholder="Tìm kiếm"
+              onChange={handleInputChange}
+            ></input>
             <button className="searchBox" onClick={handleClick}>
               <GrSearch />
-
             </button>
-            <a href="/search">
+            <Link to="/search">
               <span>Nâng cao</span>
-            </a>
+            </Link>
           </div>
           <button className="dropdownMenu">
             <FaBars />
           </button>
         </div>
         <div className="rightHeader">
-          <a href="/tintuc">
-            <span>Bản tin</span>
-          </a>
-          <a href="/gioithieu">
+          <Link to="/tintuc">
+            <span>Bản tin</span></Link>
+          <Link to="/gioithieu">
             <span>Giới thiệu</span>
-          </a>
-          <a href="tailieu">
+          </Link>
+          <Link to="tailieu">
             <span>Tài liệu</span>
-          </a>
-          <a className="yellowButton" href="lienhe">
+          </Link>
+          <Link className="yellowButton" to="lienhe">
             <span>Liên hệ</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
   );
-})
+});
+
+
+const Header =() =>{
+  const { setDataFilter } = useContext(DataContext);
+  return <HeaderRender setDataFilter={setDataFilter}/>
+}
 
 export default Header;

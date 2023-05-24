@@ -1,10 +1,10 @@
-import { DataProvider } from "./DataHandle/DataContext";
-import Footer from "./FooterComponent/footer";
-import Header from "./HeaderComponent/header";
-import { MainSearchV2 } from "./SearchComponent/MainSearchComponent/mainSearchv2";
+import { DataProvider } from "./context/DataContext";
+import Footer from "./views/footer/footer";
+import Header from "./views/header/header";
+import { MainSearchV2 } from "./layout/SearchComponent/main/mainSearchv2";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Tintuc } from "./TintucComponent/tintuc";
+import { Tintuc } from "./layout/tintuc/tintuc";
 function App() {
   return (
     <div>
@@ -15,10 +15,9 @@ function App() {
             <Route path="/" element={<MainSearchV2 />} />
             <Route path="/search" element={<MainSearchV2 />} />
             <Route path="/tintuc" element={<Tintuc />} />
-
           </Routes>
-          <Footer />
         </DataProvider>
+        <Footer />
       </Router>
     </div>
   );

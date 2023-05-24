@@ -2,7 +2,7 @@ import { useContext } from "react";
 import "./navbar.css";
 import { BsFillGrid3X3GapFill, BsMap, BsBarChartLine } from "react-icons/bs";
 import { FaBars } from "react-icons/fa";
-import { DataContext } from "../../DataHandle/DataContext";
+import { DataContext } from "../../../context/DataContext";
 function RenderNavBar() {
   const { tab, setTab } = useContext(DataContext);
   function checkActive(param) {
