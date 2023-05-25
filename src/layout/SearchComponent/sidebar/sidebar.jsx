@@ -77,10 +77,10 @@ export const RenderSideBarFunction = memo((props) => {
     props.setCurrentPage(1);
   }, [filterList, props]);
 
-  return <RenderSideBar onSetFilter={onSetFilter} />;
+  return <RenderSideBar onSetFilter={onSetFilter} filterList={filterList} />;
 });
 
-const RenderSideBar = memo(({ onSetFilter }) => {
+const RenderSideBar = memo(({ onSetFilter , filterList}) => {
   console.log("render-sidebar");
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -138,27 +138,19 @@ const RenderSideBar = memo(({ onSetFilter }) => {
   }, []);
   return (
 
-    <Render data={data} onSetFilter={onSetFilter} />
+    <Render data={data} onSetFilter={onSetFilter} filterList={filterList} />
   );
 });
 
-const Render = ({ data, onSetFilter }) => {
-  const [isUlVisible, setIsUlVisible] = useState({
-    loaihientrang: false,
-    provinces: false,
-    redbook: false,
-    iucn: false,
-  });
-
-  const toggleUlVisibility = (ulName) => {
-    setIsUlVisible((prevState) => ({
-      ...prevState,
-      [ulName]: !prevState[ulName],
-    }));
-  };
+const Render = ({ data, onSetFilter,filterList={} }) => {
 
   console.log("render");
-
+  const formatIUCNShow = (item)=>{
+    return `${item.ma_danh_muc} - ${item.ten}`
+  }
+  const formatProvincesShow = (item) =>{
+    return `${item.ten}`
+  }
   return (
     <>
       <div className="sidebarContainer">
@@ -170,119 +162,45 @@ const Render = ({ data, onSetFilter }) => {
           }}
         />
         <hr className="hrSideBar" />
-        {/* Hiện trạng loài */}
-        <ul className="ulSideBar">
-          <p onClick={() => toggleUlVisibility("loaihientrang")}>
-            {isUlVisible.loaihientrang ? (
-              <AiOutlineArrowDown />
-            ) : (
-              <AiOutlineArrowRight />
-            )}
-            Hiện trạng loài
-          </p>
-          {isUlVisible.loaihientrang &&
-            data.length > 0 &&
-            data[0].map((item) => (
-              <label
-                key={`loaihientrang-${item.id}`}
-                htmlFor={`loaihientrang-${item.id}`}
-              >
-                <li>
-                  <input
-                    id={`loaihientrang-${item.id}`}
-                    type="checkbox"
-                    value={item.id}
-                    onChange={onSetFilter("loaihientrang_ids[]")}
-                  />
-                  {item.ten}
-                </li>
-              </label>
-            ))}
-        </ul>
-        {/* Địa giới hành chính */}
-        <ul className="ulSideBar">
-          <p onClick={() => toggleUlVisibility("provinces")}>
-            {isUlVisible.provinces ? (
-              <AiOutlineArrowDown />
-            ) : (
-              <AiOutlineArrowRight />
-            )}
-            Địa giới hành chính
-          </p>
-          {isUlVisible.provinces &&
-            data.length > 0 &&
-            data[1].map((item) => (
-              <label
-                key={`provinces-${item.id}`}
-                htmlFor={`provinces-${item.id}`}
-              >
-                <li>
-                  <input
-                    type="checkbox"
-                    id={`provinces-${item.id}`}
-                    value={item.id}
-                    onChange={onSetFilter("province_ids[]")}
-                  />
-                  {item.ten}
-                </li>
-              </label>
-            ))}
-        </ul>
-        {/* Sách đỏ */}
-        <ul className="ulSideBar">
-          <p onClick={() => toggleUlVisibility("redbook")}>
-            {isUlVisible.redbook ? (
-              <AiOutlineArrowDown />
-            ) : (
-              <AiOutlineArrowRight />
-            )}
-            Sách đỏ
-          </p>
-          {isUlVisible.redbook &&
-            data.length > 0 &&
-            data[2].map((item) => (
-              <label key={`redbook-${item.id}`} htmlFor={`redbook-${item.id}`}>
-                <li>
-                  <input
-                    type="checkbox"
-                    id={`redbook-${item.id}`}
-                    value={item.id}
-                    onChange={onSetFilter("sach_do_ids[]")}
-                  />
-                  {item.ma_danh_muc} - {item.ten}
-                </li>
-              </label>
-            ))}
-        </ul>
+
         {/* IUCN */}
-        <ul className="ulSideBar">
-          <p onClick={() => toggleUlVisibility("iucn")}>
-            {isUlVisible.iucn ? (
-              <AiOutlineArrowDown />
-            ) : (
-              <AiOutlineArrowRight />
-            )}
-            IUCN
-          </p>
-          {isUlVisible.iucn &&
-            data.length > 0 &&
-            data[3].map((item) => (
-              <label key={`iucn-${item.id}`} htmlFor={`iucn-${item.id}`}>
-                <li>
-                  <input
-                    id={`iucn-${item.id}`}
-                    type="checkbox"
-                    value={item.id}
-                    onChange={onSetFilter("iucn_ids[]")}
-                  />
-                  {item.ma_danh_muc} - {item.ten}
-                </li>
-              </label>
-            ))}
-        </ul>
+        <SiderBarFilter name="Loài hiện trạng" items={data[0]} formatShow={formatProvincesShow} onSetValue={onSetFilter("loaihientrang_ids[]")} value={filterList['loaihientrang_ids[]']} />
+        <SiderBarFilter name="Địa giới hành chính" items={data[1]} formatShow={formatProvincesShow} onSetValue={onSetFilter("province_ids[]")} value={filterList['province_ids[]']} />
+        <SiderBarFilter name="Sách đỏ" items={data[2]} formatShow={formatIUCNShow} onSetValue={onSetFilter("sach_do_ids[]")} value={filterList['sach_do_ids[]']} />
+        <SiderBarFilter name="IUCN" items={data[3]} formatShow={formatIUCNShow} onSetValue={onSetFilter("iucn_ids[]")} value={filterList['iucn_ids[]']} />
       </div>
     </>
   );
 };
 
 export default Render;
+const SiderBarFilter = memo(({ value=[], items = [], formatShow = ()=>'', name,onSetValue }) => {
+  console.log("log");
+  let [show, setShow] = useState(false)
+  return <ul className="ulSideBar">
+    <p onClick={() => setShow(!show)}>
+      {show ? (
+        <AiOutlineArrowDown />
+      ) : (
+        <AiOutlineArrowRight />
+      )}
+      {name}
+    </p>
+    {show &&
+      items.length > 0 &&
+      items.map((item) => (
+        <label key={`iucn-${item.id}`} htmlFor={`iucn-${item.id}`}>
+          <li>
+            <input
+              id={`iucn-${item.id}`}
+              type="checkbox"
+              value={item.id}
+              checked={value.includes(''+item.id)}
+              onChange={onSetValue}
+            />
+            {formatShow(item)}
+          </li>
+        </label>
+      ))}
+  </ul>
+})
