@@ -1,23 +1,30 @@
-const endpoint = "https://loainguycap.ceid.gov.vn/api/"
+const endpoint = "https://loainguycap.ceid.gov.vn/api/";
 const routerObject = {
-    domain:"https://loainguycap.ceid.gov.vn",
-    loaihientrang:"loaihientrangs",
-    redbook:"danhmuccha?ma_danh_mucs[]=REDBOOK",
-    iucn:"danhmuccha?ma_danh_mucs[]=IUCN",
-    provinces:"provinces",
-}
+  domain: "https://loainguycap.ceid.gov.vn",
+  loaihientrang: "loaihientrangs",
+  redbook: "danhmuccha?ma_danh_mucs[]=REDBOOK",
+  iucn: "danhmuccha?ma_danh_mucs[]=IUCN",
+  provinces: "provinces",
+};
 
 function getRoute(param, filter) {
-    if(filter===undefined){
-        filter="";
-    }
-    if(param === "domain"){
-        return routerObject["domain"];
-    }
-    if(typeof(param) === "number"){
-        return endpoint + "loaicongbo?paginate=true&page="+param+"&perpage=18"+filter;
-        // return "https://loainguycap.ceid.gov.vn/api/loaicongbo?paginate=true&page="+param+"&perpage=18&loaihientrang_ids[]=3";
-    }
-    return endpoint + routerObject[param] + filter;
+  console.log("aa");
+  if (filter === undefined) {
+    filter = "";
+  }
+  if (param === "domain") {
+    return routerObject["domain"];
+  }
+  if (typeof param === "number") {
+    return (
+      endpoint +
+      "loaicongbo?paginate=true&page=" +
+      param +
+      "&perpage=18" +
+      filter
+    );
+    // return "https://loainguycap.ceid.gov.vn/api/loaicongbo?paginate=true&page="+param+"&perpage=18&loaihientrang_ids[]=3";
+  }
+  return endpoint + routerObject[param] + filter;
 }
 export default getRoute;
