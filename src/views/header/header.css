@@ -1,21 +1,19 @@
 @import url(https://fonts.googleapis.com/css?family=Material+Icons);
 
-
-.header{
+.header {
   display: flex;
   flex-wrap: wrap;
 }
 
 .topHeader {
   height: 45px;
-  background-color: #AD180D;
+  background-color: #ad180d;
   width: 100%;
   position: relative;
-
 }
 
 .loginButton {
-  background-color: #AD180D;
+  background-color: #ad180d;
   border: 0;
   color: white;
   margin: 0;
@@ -26,6 +24,13 @@
   right: 64px;
   padding: 0 16px;
   font-family: "Roboto";
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.loginButton:hover {
+  background-color: #c22318;
 }
 
 .loginButton span {
@@ -53,7 +58,6 @@
   flex: 1 1;
   display: flex;
   align-items: center;
-  
 }
 
 .middleContainer input {
@@ -61,7 +65,6 @@
   padding: 8px;
   border: 0;
   height: 45px;
-  
 }
 
 .searchBox {
@@ -74,20 +77,20 @@
   cursor: pointer;
 }
 
-.dropdownMenu{
+.dropdownMenu {
   height: 45px;
   padding: 8px;
   border: 0;
   width: 45px;
   font-size: 24px;
   background: none;
-  color:white;
-  display:none;
+  color: white;
+  display: none;
 }
-.middleContainer a{
+.middleContainer a {
   margin-left: 20px;
   color: white;
-  border-bottom:1px solid white;
+  border-bottom: 1px solid white;
   text-decoration: none;
 }
 .searchContainer {
@@ -130,13 +133,13 @@ svg path {
 }
 
 @media only screen and (max-width: 960px) {
-  .rightHeader{
-    display:none;
-  }
-  .searchContainer span{
+  .rightHeader {
     display: none;
   }
-  .dropdownMenu{
-    display:block;
+  .searchContainer span {
+    display: none;
+  }
+  .dropdownMenu {
+    display: block;
   }
 }

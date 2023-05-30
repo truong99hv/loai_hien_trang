@@ -6,7 +6,6 @@ import { debounce } from "lodash";
 export const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
-  // console.log("render-DataProvider");
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
   const [loadingFirst, setLoadingFirst] = useState(true);
@@ -20,9 +19,9 @@ export const DataProvider = ({ children }) => {
     setCurrentPage(currentPage + 1);
   };
   useEffect(() => {
-    if(currentPage===1){
-    setLoadingFirst(true);
-  }
+    if (currentPage === 1) {
+      setLoadingFirst(true);
+    }
 
     setLoadingMore(true);
 

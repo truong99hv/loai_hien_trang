@@ -5,13 +5,17 @@ import "./mainSearch.css";
 import { useContext } from "react";
 import { DataContext } from "../../../context/DataContext";
 function GridView() {
-  const { data, currentPage, onsetPage, total, loadingFirst, loadingMore } = useContext(DataContext);
-  console.log("render-gridView");
+  const { data, currentPage, onsetPage, total, loadingFirst, loadingMore } =
+    useContext(DataContext);
   let items = data;
   const sixItems = items.slice(0, 6);
   const otherItems = items.slice(6);
-  if(loadingFirst){
-    return <div className="main container-loader"><div className="loader"></div></div>
+  if (loadingFirst) {
+    return (
+      <div className="main container-loader">
+        <div className="loading"></div>
+      </div>
+    );
   }
   return (
     <div className="main">
@@ -30,16 +34,15 @@ function GridView() {
             <b>Kết quả khác</b>
           </h2>
           <div className="flexContainerSearch">
-            {
-                
-                  otherItems.map((item, index) => (
-                    <OtherItems key={index} item={item} />
-                  ))
-                
-            }
-           
+            {otherItems.map((item, index) => (
+              <OtherItems key={index} item={item} />
+            ))}
           </div>
-          {loadingMore && <div className="container-loader"><div className="loader"></div></div>}
+          {loadingMore && (
+            <div className="container-loader">
+              <div className="loading"></div>
+            </div>
+          )}
         </div>
       ) : null}
       <div className="buttonLoadMore">
@@ -52,7 +55,6 @@ function GridView() {
     </div>
   );
 }
-
 
 const sixItem = ({ item }) => {
   return (
@@ -159,21 +161,13 @@ const otherItem = ({ item }) => {
           <div className="rightFlexBottomSearch">
             {item.sach_dos != null && item.iucns != null ? (
               <>
-                <div className="iconFlexBottomSearch pink">
-                  {item.sach_dos}
-                </div>
-                <div className="iconFlexBottomSearch orange">
-                  {item.iucns}
-                </div>
+                <div className="iconFlexBottomSearch pink">{item.sach_dos}</div>
+                <div className="iconFlexBottomSearch orange">{item.iucns}</div>
               </>
             ) : item.sach_do != null && item.iucns == null ? (
-              <div className="iconFlexBottomSearch pink">
-                {item.sach_dos}
-              </div>
+              <div className="iconFlexBottomSearch pink">{item.sach_dos}</div>
             ) : item.sach_do == null && item.iucns != null ? (
-              <div className="iconFlexBottomSearch pink">
-                {item.iucns}
-              </div>
+              <div className="iconFlexBottomSearch pink">{item.iucns}</div>
             ) : (
               <></>
             )}
@@ -182,10 +176,7 @@ const otherItem = ({ item }) => {
       </div>
     </div>
   );
-}
-
-
-
+};
 
 const SixItems = React.memo(sixItem);
 const OtherItems = React.memo(otherItem);

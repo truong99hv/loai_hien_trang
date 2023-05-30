@@ -1,8 +1,8 @@
 import "./sidebar.css";
 import {
   AiFillQuestionCircle,
-  AiOutlineArrowDown,
-  AiOutlineArrowRight,
+  AiOutlineRight,
+  AiOutlineDown,
 } from "react-icons/ai";
 import getDataFromApi from "../../../components/getDataFromApi";
 import React, {
@@ -35,7 +35,6 @@ export const UseDataContextSideBar = () => {
 };
 
 export const RenderSideBarFunction = memo((props) => {
-  console.log("render-father");
   const [filterList, setFilterList] = useState({
     "loaihientrang_ids[]": [],
     "province_ids[]": [],
@@ -80,8 +79,7 @@ export const RenderSideBarFunction = memo((props) => {
   return <RenderSideBar onSetFilter={onSetFilter} filterList={filterList} />;
 });
 
-const RenderSideBar = memo(({ onSetFilter , filterList}) => {
-  console.log("render-sidebar");
+const RenderSideBar = memo(({ onSetFilter, filterList }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     const returnData = async () => {
@@ -129,7 +127,6 @@ const RenderSideBar = memo(({ onSetFilter , filterList}) => {
         });
         dataList.push(newiucnList);
         setData(dataList);
-        console.log(dataList);
       } catch (error) {
         console.log("ERROR: " + error);
       }
@@ -137,20 +134,17 @@ const RenderSideBar = memo(({ onSetFilter , filterList}) => {
     returnData();
   }, []);
   return (
-
     <Render data={data} onSetFilter={onSetFilter} filterList={filterList} />
   );
 });
 
-const Render = ({ data, onSetFilter,filterList={} }) => {
-
-  console.log("render");
-  const formatIUCNShow = (item)=>{
-    return `${item.ma_danh_muc} - ${item.ten}`
-  }
-  const formatProvincesShow = (item) =>{
-    return `${item.ten}`
-  }
+const Render = ({ data, onSetFilter, filterList = {} }) => {
+  const formatIUCNShow = (item) => {
+    return `${item.ma_danh_muc} - ${item.ten}`;
+  };
+  const formatProvincesShow = (item) => {
+    return `${item.ten}`;
+  };
   return (
     <>
       <div className="sidebarContainer">
@@ -162,45 +156,74 @@ const Render = ({ data, onSetFilter,filterList={} }) => {
           }}
         />
         <hr className="hrSideBar" />
-
-        {/* IUCN */}
-        <SiderBarFilter name="Loài hiện trạng" items={data[0]} formatShow={formatProvincesShow} onSetValue={onSetFilter("loaihientrang_ids[]")} value={filterList['loaihientrang_ids[]']} />
-        <SiderBarFilter name="Địa giới hành chính" items={data[1]} formatShow={formatProvincesShow} onSetValue={onSetFilter("province_ids[]")} value={filterList['province_ids[]']} />
-        <SiderBarFilter name="Sách đỏ" items={data[2]} formatShow={formatIUCNShow} onSetValue={onSetFilter("sach_do_ids[]")} value={filterList['sach_do_ids[]']} />
-        <SiderBarFilter name="IUCN" items={data[3]} formatShow={formatIUCNShow} onSetValue={onSetFilter("iucn_ids[]")} value={filterList['iucn_ids[]']} />
+        <SiderBarFilter
+          name="Loài hiện trạng"
+          items={data[0]}
+          formatShow={formatProvincesShow}
+          onSetValue={onSetFilter("loaihientrang_ids[]")}
+          value={filterList["loaihientrang_ids[]"]}
+        />
+        <hr />
+        <SiderBarFilter
+          name="Địa giới hành chính"
+          items={data[1]}
+          formatShow={formatProvincesShow}
+          onSetValue={onSetFilter("province_ids[]")}
+          value={filterList["province_ids[]"]}
+        />
+        <hr />
+        <SiderBarFilter
+          name="Sách đỏ"
+          items={data[2]}
+          formatShow={formatIUCNShow}
+          onSetValue={onSetFilter("sach_do_ids[]")}
+          value={filterList["sach_do_ids[]"]}
+        />
+        <hr />
+        <SiderBarFilter
+          name="IUCN"
+          items={data[3]}
+          formatShow={formatIUCNShow}
+          onSetValue={onSetFilter("iucn_ids[]")}
+          value={filterList["iucn_ids[]"]}
+        />
       </div>
     </>
   );
 };
 
 export default Render;
-const SiderBarFilter = memo(({ value=[], items = [], formatShow = ()=>'', name,onSetValue }) => {
-  console.log("log");
-  let [show, setShow] = useState(false)
-  return <ul className="ulSideBar">
-    <p onClick={() => setShow(!show)}>
-      {show ? (
-        <AiOutlineArrowDown />
-      ) : (
-        <AiOutlineArrowRight />
-      )}
-      {name}
-    </p>
-    {show &&
-      items.length > 0 &&
-      items.map((item) => (
-        <label key={`iucn-${item.id}`} htmlFor={`iucn-${item.id}`}>
-          <li>
-            <input
-              id={`iucn-${item.id}`}
-              type="checkbox"
-              value={item.id}
-              checked={value.includes(''+item.id)}
-              onChange={onSetValue}
-            />
-            {formatShow(item)}
-          </li>
-        </label>
-      ))}
-  </ul>
-})
+const SiderBarFilter = memo(
+  ({ value = [], items = [], formatShow = () => "", name, onSetValue }) => {
+    let [show, setShow] = useState(false);
+    return (
+      <ul className="ulSideBar">
+        <h3 className="title-filter" onClick={() => setShow(!show)}>
+          <span>{show ? <AiOutlineDown /> : <AiOutlineRight />}</span>
+
+          {name}
+        </h3>
+        <hr className="hr-full" />
+        {show &&
+          items.length > 0 &&
+          items.map((item, index) => (
+            <div key={index} className="a">
+              <label key={`iucn-${item.id}`} htmlFor={`iucn-${item.id}`}>
+                <li>
+                  <input
+                    id={`iucn-${item.id}`}
+                    type="checkbox"
+                    value={item.id}
+                    checked={value.includes("" + item.id)}
+                    onChange={onSetValue}
+                  />
+                  {formatShow(item)}
+                </li>
+              </label>
+              <hr className="hr-full" />
+            </div>
+          ))}
+      </ul>
+    );
+  }
+);

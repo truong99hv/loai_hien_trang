@@ -3,9 +3,8 @@ import { FaBars } from "react-icons/fa";
 import "./header.css";
 import { useContext, useState, memo } from "react";
 import { DataContext } from "../../context/DataContext";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 const HeaderRender = memo((props) => {
-  console.log("renderHeader");
   // const { setDataFilter } = useContext(DataContext);
   const handleClick = () => {
     props.setDataFilter((prevFilterList) => {
@@ -20,7 +19,7 @@ const HeaderRender = memo((props) => {
       }
     });
   };
-  
+
   const [inputValue, setInputValue] = useState("");
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -28,9 +27,11 @@ const HeaderRender = memo((props) => {
   return (
     <div className="header">
       <div className="topHeader">
-        <button className="loginButton">
-          <span>Đăng nhập</span>
-        </button>
+        <Link to="/login">
+          <button className="loginButton">
+            <span>Đăng nhập</span>
+          </button>
+        </Link>
       </div>
       <div className="bottomHeader">
         <div className="leftHeader">
@@ -62,11 +63,12 @@ const HeaderRender = memo((props) => {
         </div>
         <div className="rightHeader">
           <Link to="/tintuc">
-            <span>Bản tin</span></Link>
+            <span>Bản tin</span>
+          </Link>
           <Link to="/gioithieu">
             <span>Giới thiệu</span>
           </Link>
-          <Link to="tailieu">
+          <Link to="/tailieu">
             <span>Tài liệu</span>
           </Link>
           <Link className="yellowButton" to="lienhe">
@@ -78,10 +80,9 @@ const HeaderRender = memo((props) => {
   );
 });
 
-
-const Header =() =>{
+const Header = () => {
   const { setDataFilter } = useContext(DataContext);
-  return <HeaderRender setDataFilter={setDataFilter}/>
-}
+  return <HeaderRender setDataFilter={setDataFilter} />;
+};
 
 export default Header;
