@@ -8,7 +8,6 @@ const routerObject = {
 };
 
 function getRoute(param, filter) {
-  console.log("aa");
   if (filter === undefined) {
     filter = "";
   }
