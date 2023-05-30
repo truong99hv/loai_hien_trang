@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
       });
   };
   if (!isChecking && !isAuthenticated && token) {
-    console.log("has token");
     checkAuth(token);
   }
 
