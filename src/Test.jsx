@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./test.css";
 import {
   FileOutlined,
@@ -9,10 +9,22 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from "@ant-design/icons";
+import {
+  RiDashboardFill,
+  RiPencilFill,
+  RiSortDesc,
+  RiUserFill,
+} from "react-icons/ri";
+import { GiAnimalSkull } from "react-icons/gi";
+import { FaListAlt } from "react-icons/fa";
 import { Layout, Menu, Button, theme, Row } from "antd";
+import { Link } from "react-router-dom";
+import { AuthContext } from "./context/AuthContext";
+import { BsJournal, BsJournalMinus, BsJournalPlus } from "react-icons/bs";
+import { AiOutlineGroup } from "react-icons/ai";
 
 const { Header, Sider, Content } = Layout;
-
+// const { logout, user } = useContext(AuthContext);
 const Test = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
@@ -29,57 +41,52 @@ const Test = () => {
   };
 
   const items = [
-    getItem("Option 1", "1", <PieChartOutlined />),
-    getItem("Option 2", "2", <DesktopOutlined />),
-    getItem("User", "sub1", <UserOutlined />, [
-      getItem("Tom", "3"),
-      getItem("Bill", "4"),
-      getItem("Alex", "5"),
+    getItem(" Bảng điều khiển ", "1", <RiDashboardFill />),
+    getItem(" Quản lý người dùng ", "2", <RiUserFill />),
+    getItem("  Phân loại học  ", "3", <RiSortDesc />),
+    getItem("  Loài nguy cấp quý hiếm  ", "4", <GiAnimalSkull />),
+    getItem("  Bài viết  ", "5", <RiPencilFill />),
+    getItem(" Phiếu đề xuất ", "Phiếu đề xuất", <FaListAlt />, [
+      getItem(" Đưa loài vào ", "6", <BsJournalPlus />),
+      getItem(" Đưa loài ra ", "7", <BsJournalMinus />),
+      getItem(" Phiếu thông tin ", "8", <BsJournal />),
     ]),
-    getItem("Team", "sub2", <TeamOutlined />, [
-      getItem("Team 1", "6"),
-      getItem("Team 2", "8"),
+    getItem(" Danh mục ", " Danh mục ", <AiOutlineGroup />, [
+      getItem(" Danh mục tĩnh ", "9", <BsJournalPlus />),
+      getItem(" Danh mục động ", "10", <BsJournalMinus />),
     ]),
-    getItem("Files", "9", <FileOutlined />),
   ];
   return (
     <Layout>
-      <Header
-        className="header"
-        style={{
-          padding: 0,
-          background: colorBgContainer,
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+      <Header className="header">
         <div className="left-header">
-          <Row>
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
-              }}
-            />
-            <a href="/" className="link-logo">
-              <img
-                src="http://wlp.howizbiz.com/static/img/logo.png"
-                alt="logo"
-              />
-            </a>
-            <h1>
-              HỆ THỐNG BÁO CÁO VỀ HIỆN TRẠNG LOÀI NGUY CẤP, QUÝ, HIẾM ĐƯỢC ƯU
-              TIÊN BẢO VỆ
-            </h1>
-          </Row>
+          <Button
+            className="btn btn-menu"
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: "16px",
+              width: 50,
+              height: 50,
+            }}
+          />
+          <Link href="/" className="link-logo">
+            <img src="http://wlp.howizbiz.com/static/img/logo.png" alt="logo" />
+          </Link>
+          <h3 className="title-header">
+            HỆ THỐNG BÁO CÁO VỀ HIỆN TRẠNG LOÀI NGUY CẤP, QUÝ, HIẾM ĐƯỢC ƯU TIÊN
+            BẢO VỆ
+          </h3>
         </div>
 
         <div className="right-header">
-          <Row>a</Row>
+          <Button className="btn btn-user">
+            <div className="avatar-user">
+              <span>B</span>
+            </div>
+            <span className="name-user">"user.name"</span>
+          </Button>
         </div>
       </Header>
       <Layout>
@@ -89,9 +96,9 @@ const Test = () => {
           collapsible
           collapsed={collapsed}
         >
-          <div className="demo-logo-vertical" />
+          {/* <div className="demo-logo-vertical" /> */}
           <Menu
-            theme="dark"
+            className="menu-items"
             mode="inline"
             defaultSelectedKeys={["1"]}
             items={items}
@@ -99,7 +106,6 @@ const Test = () => {
         </Sider>
         <Content
           style={{
-            margin: "24px 16px",
             padding: 24,
             minHeight: 280,
             background: colorBgContainer,
