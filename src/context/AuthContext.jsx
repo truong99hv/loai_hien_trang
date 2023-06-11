@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   };
   const logout = () => {
     localStorage.removeItem("user-token");
-    // setUser(null);
+    setUser(null);
     setToken(null);
     setIsAuthenticated(false);
   };

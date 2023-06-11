@@ -16,6 +16,8 @@ import Admin from "./layout/ADmin/Admin";
 import NotFound from "./views/not found/NotFound";
 import PrivateRoute from "./layout/Login/PrivateRoute";
 import Test from "./Test";
+import UserManagement from "./layout/ADmin/UserManagement/UserManagement";
+import Dashboard from "./layout/ADmin/Dashbord/Dashboard";
 
 function App() {
   return (
@@ -26,7 +28,10 @@ function App() {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/admin" element={<PrivateRoute />}>
-                <Route path="/admin" element={<Admin />}></Route>
+                <Route path="/admin" element={<Admin />}>
+                  {/* <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/users" element={<UserManagement />} /> */}
+                </Route>
               </Route>
               <Route path="/test" element={<Test />} />
               {/* <Route

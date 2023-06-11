@@ -1,0 +1,83 @@
+.ant-tooltip-inner {
+  display: none;
+}
+
+.ant-tooltip-arrow::before {
+  display: none;
+}
+
+.ant-pagination {
+  transform: translateY(-50px);
+}
+
+.select-page {
+  margin-left: 20px;
+}
+.ant-table-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.page-total-page {
+  width: 70px;
+}
+
+.list-roles {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.role {
+  text-align: center;
+  padding: 0px 10px;
+  font-weight: 600;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.action-divider:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.action {
+  cursor: pointer;
+  margin: 0 4px;
+  font-size: 18px;
+}
+
+/* .action:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+} */
+
+.button-disabled {
+  pointer-events: none;
+  opacity: 0.3;
+  /* color: #d7cbcb; */
+}
+
+/* .ant-popover-inner {
+  background-color: rgb(40, 38, 38) !important;
+  opacity: 0.8;
+} */
+
+/* .ant-popover-inner-content {
+  color: rgb(201, 213, 222) !important;
+} */
+
+.ant-popover-arrow {
+  display: none;
+}
+
+.ant-popover-arrow::before {
+  display: none;
+}
+
+.bg-red {
+  color: rgb(239, 62, 62);
+}

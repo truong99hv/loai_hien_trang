@@ -8,7 +8,8 @@
   justify-content: space-between;
   align-items: center;
   background-color: #fbfbfb;
-  /* padding: 0 10px; */
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  z-index: 2;
 }
 
 .left-header {
@@ -65,7 +66,7 @@
   min-width: 36px;
   width: 36px;
   background-color: rgb(0, 137, 123);
-  border-color: rgb(0, 137, 123);
+  /* border-color: rgb(0, 137, 123); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,6 +77,10 @@
   margin-right: 10px;
 }
 
+.avatar-user img {
+  width: 100%;
+}
+
 .name-user {
   margin-left: 10px;
   font-weight: 500;
@@ -83,10 +88,111 @@
   color: #222020;
 }
 
-.menu-items {
-  height: 80vh;
+.popover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 240px;
 }
 
-.ant-menu-title-content {
-  /* background-color: #f3e9e9; */
+.list-btn {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.avatar-big {
+  width: 50px !important;
+  height: 50px !important;
+  font-size: 15px !important;
+}
+
+.avatar-big img {
+  width: 100%;
+}
+
+.btn {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.btn-file span {
+  color: #222020;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.btn-file:hover {
+  background-color: #f3e9e9;
+}
+
+.btn-logout span {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgb(228, 66, 66);
+}
+
+.btn-logout:hover span {
+  color: rgb(228, 66, 66);
+}
+.btn-file:hover span {
+  color: #222020;
+}
+
+.btn-logout:hover {
+  background-color: #e6adad;
+}
+
+.menu-items {
+  height: 91vh;
+}
+
+/* user-management */
+.avatar-user-management {
+  width: 34px;
+  height: 34px;
+  border-radius: 30px;
+  background-color: #a2eec9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #da3131;
+  font-size: 18px;
+}
+
+.title-user-management {
+  display: flex;
+  align-items: center;
+}
+
+.title-user-management h3 {
+  margin: 0;
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+}
+
+/* search-bar */
+.search-bar {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-search-bar {
+  width: 75%;
+  color: #9c9393;
+  outline: none;
+}
+
+.role-user {
+  text-align: center;
+  padding: 0px 10px;
+  font-weight: 600;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-top: 10px;
 }
