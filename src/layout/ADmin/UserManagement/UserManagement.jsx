@@ -18,6 +18,7 @@ import axios from "axios";
 import { MdDeleteOutline } from "react-icons/md";
 import { BsPencilFill } from "react-icons/bs";
 import { RiRotateLockFill } from "react-icons/ri";
+import Search from "antd/es/transfer/search";
 
 const UserManagement = () => {
   const [userData, setUserData] = useState(null);
@@ -33,6 +34,8 @@ const UserManagement = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleTableChange = (pagination) => {
     setPagination(pagination);
@@ -85,8 +88,7 @@ const UserManagement = () => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const response = await axios.put(url, userData, { headers });
-      return response.data;
+      await axios.put(url, userData, { headers });
     } catch (error) {
       throw new Error("Failed to update user");
     }
@@ -94,19 +96,18 @@ const UserManagement = () => {
 
   const handleUpdateUser = async (values, username) => {
     try {
-      const { name, email, mobile, role_ids, provinces, khubaoton } = values;
+      const { name, email, mobile, role_ids } = values;
+      console.log("Các giá trị cần cập nhật:", values);
       const userData = {
         name,
         email,
         mobile,
         role_ids,
-        provinces,
-        khubaoton,
       };
       await updateUser(selectedUserId, userData);
       setIsModalVisible(false);
       message.success(`Cập nhật thông tin người dùng "${username}" thành công`);
-      getData();
+      getUser();
     } catch (error) {
       console.log(error);
       message.error("Đã xảy ra lỗi khi cập nhật thông tin người dùng");
@@ -114,8 +115,7 @@ const UserManagement = () => {
   };
 
   const handleEditClick = (userId, record) => {
-    console.log(userId);
-    // console.log(record);
+    console.log(record);
     setCurrentUser(record);
     setSelectedUser(record);
     setIsModalVisible(true);
@@ -321,6 +321,36 @@ const UserManagement = () => {
     }
   };
 
+  // search
+  const handleSearch = async (value) => {
+    setSearchValue(value);
+    const url = `http://wlp.howizbiz.com/api/users?paginate=true&page=1&perpage=10&with=roles,createdBy,provinces&search=${value}`;
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      const listUserData = await axios.get(url, { headers });
+      // const listUserData = await getData(url, headers);
+      console.log(listUserData);
+      if (listUserData) {
+        setSearchResults(listUserData.data.list);
+        setTotalUser(listUserData.data.pagination.count);
+        setPagination((prevPagination) => ({
+          ...prevPagination,
+          total: listUserData.data.pagination.count,
+        }));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    handleSearch(searchValue);
+  }, [searchValue]);
+  const dataSource = searchValue ? searchResults : newData;
+
   return (
     <div className="user-management">
       <div className="title-user-management">
@@ -336,6 +366,9 @@ const UserManagement = () => {
           className="input-search-bar"
           placeholder="Tìm kiếm theo tên hoặc số điện thoại"
           prefix={<RiSearchLine />}
+          // onSearch={(value) => handleSearch(value)}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
         />
         <Button
           className="btn btn-add-new"
@@ -353,7 +386,7 @@ const UserManagement = () => {
       </div>
 
       <Table
-        dataSource={newData}
+        dataSource={dataSource}
         columns={columns}
         pagination={pagination}
         onChange={handleTableChange}

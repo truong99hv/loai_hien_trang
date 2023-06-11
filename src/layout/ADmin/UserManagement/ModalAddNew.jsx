@@ -15,7 +15,7 @@ const ModalAddNew = ({
   handleUpdateUser,
 }) => {
   const [roles, setRoles] = useState([]);
-  // const [selectedUser, setSelectedUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
   const [form] = Form.useForm();
   const token = localStorage.getItem("user-token");
 
@@ -172,7 +172,12 @@ const ModalAddNew = ({
       onOk={formik.handleSubmit}
       onCancel={handleCancel}
     >
-      <Form form={form} layout="vertical">
+      <Form
+        form={form}
+        layout="vertical"
+        initialValues={initialValues}
+        onFinish={handleFormSubmit}
+      >
         <Form.Item
           label="Tên hiển thị"
           name="name"
