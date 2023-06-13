@@ -1,15 +1,16 @@
 import {
   Button,
-  Input,
+  Pagination,
   Popconfirm,
   Popover,
+  Row,
   Select,
   Switch,
   Table,
   message,
 } from "antd";
 import React, { useEffect, useState } from "react";
-import { RiSearchLine, RiUserFill } from "react-icons/ri";
+import { RiUserFill } from "react-icons/ri";
 import { BiPlus } from "react-icons/bi";
 import getData from "../asset/getData";
 import "./user.css";
@@ -18,33 +19,40 @@ import axios from "axios";
 import { MdDeleteOutline } from "react-icons/md";
 import { BsPencilFill } from "react-icons/bs";
 import { RiRotateLockFill } from "react-icons/ri";
-import Search from "antd/es/transfer/search";
+import Filter from "./Filter";
 
 const UserManagement = () => {
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState([]);
+
   const [totalUser, setTotalUser] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedUserId, setSelectedUserId] = useState(null);
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 5,
-    pageSizeOptions: ["5", "10", "15", "20"],
-    total: 0,
-  });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [filterData, setFilterData] = useState({});
+  const [change, setChange] = useState();
 
-  const handleTableChange = (pagination) => {
-    setPagination(pagination);
-  };
   const token = localStorage.getItem("user-token");
 
-  const getUser = async () => {
-    const url =
-      "http://wlp.howizbiz.com/api/users?paginate=true&page=1&perpage=10&with=roles";
+  const handlePageSizeChange = (value) => {
+    setPageSize(value);
+  };
+  const handleCurrentPage = (page) => {
+    setCurrentPage(page);
+  };
+
+  const url = `http://wlp.howizbiz.com/api/users?paginate=true&page=${currentPage}&perpage=${pageSize}&with=roles,createdBy,provinces&search=`;
+
+  const values = Object.values(filterData)
+    .filter((value) => value !== null && value !== undefined && value !== "")
+    .join("");
+
+  const urlApi = filterData ? url + values : url;
+
+  const getUser = async (url) => {
     const headers = {
       "Content-Type": "application/json",
       Authorization: "Bearer",
@@ -53,11 +61,7 @@ const UserManagement = () => {
       const listUserData = await getData(url, headers);
       if (listUserData) {
         setUserData(listUserData.list);
-        setTotalUser(listUserData.pagination.count);
-        setPagination((prevPagination) => ({
-          ...prevPagination,
-          total: listUserData.pagination.count,
-        }));
+        setTotalUser(listUserData.pagination.total);
       }
     } catch (error) {
       console.log(error);
@@ -74,13 +78,13 @@ const UserManagement = () => {
       created_at: item.created_at,
       roles: item.roles,
       id: item.id,
+      email: item.email,
     }));
   };
 
   useEffect(() => {
-    getUser();
-  }, []);
-
+    getUser(urlApi);
+  }, [urlApi, filterData]);
   const updateUser = async (user_id, userData) => {
     const url = `http://wlp.howizbiz.com/api/users/${user_id}`;
     const headers = {
@@ -96,14 +100,16 @@ const UserManagement = () => {
 
   const handleUpdateUser = async (values, username) => {
     try {
-      const { name, email, mobile, role_ids } = values;
-      console.log("Các giá trị cần cập nhật:", values);
+      const { name, email, mobile, roles } = values;
+      console.log("values", values);
       const userData = {
         name,
         email,
         mobile,
-        role_ids,
+        roles,
       };
+
+      // console.log(userData);
       await updateUser(selectedUserId, userData);
       setIsModalVisible(false);
       message.success(`Cập nhật thông tin người dùng "${username}" thành công`);
@@ -115,7 +121,6 @@ const UserManagement = () => {
   };
 
   const handleEditClick = (userId, record) => {
-    console.log(record);
     setCurrentUser(record);
     setSelectedUser(record);
     setIsModalVisible(true);
@@ -142,21 +147,31 @@ const UserManagement = () => {
       title: "Tên hiển thị",
       dataIndex: "name",
       sorter: (a, b) => a.name.localeCompare(b.name),
+      visible: true,
+      width: 140,
     },
     {
       title: "Tên đăng nhập",
       dataIndex: "username",
       sorter: (a, b) => a.name.localeCompare(b.name),
       width: 150,
+      visible: true,
     },
     {
       title: "Số điện thoại",
       dataIndex: "mobile",
       width: 120,
+      visible: true,
+    },
+    {
+      title: "email",
+      dataIndex: "email",
+      visible: false,
     },
     {
       title: "Trạng thái",
       dataIndex: "inactive",
+      visible: true,
       width: 120,
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: (inactive) => (
@@ -169,6 +184,7 @@ const UserManagement = () => {
     {
       title: "Quyền",
       dataIndex: "roles",
+      visible: true,
       render: (roles) => {
         if (roles && roles.length > 0) {
           return (
@@ -191,7 +207,7 @@ const UserManagement = () => {
     {
       title: "Ngày tạo",
       dataIndex: "created_at",
-
+      visible: true,
       render: (text) => {
         const shortenedText = text.substring(0, 10);
         return shortenedText;
@@ -200,6 +216,7 @@ const UserManagement = () => {
 
     {
       title: "Hành động",
+      visible: true,
       width: 120,
       render: (_, record) => {
         const roles = record.roles;
@@ -267,42 +284,35 @@ const UserManagement = () => {
     // });
     // setUserData(updatedUserData);
   };
-
-  const handlePageSizeChange = (value) => {
-    const pageSize = parseInt(value);
-    setPagination((prevPagination) => ({
-      ...prevPagination,
-      current: 1,
-      pageSize: pageSize,
-    }));
+  const handleAddUserSuccess = () => {
+    getUser(urlApi);
   };
-
-  const TableSummary = ({
-    startIndex,
-    endIndex,
-    totalUser,
-    pageSizeOptions,
-    handlePageSizeChange,
-  }) => {
-    return (
-      <>
-        <div className="page-total-page">
-          {startIndex + 1} - {endIndex} / {totalUser}
-        </div>
-        <Select
-          className="select-page"
-          value={pagination.pageSize.toString()}
-          onChange={handlePageSizeChange}
-        >
-          {pageSizeOptions.map((pageSize) => (
-            <Select.Option key={pageSize} value={pageSize}>
-              {pageSize} / trang
-            </Select.Option>
-          ))}
-        </Select>
-      </>
-    );
-  };
+  // const TableSummary = ({
+  //   startIndex,
+  //   endIndex,
+  //   totalUser,
+  //   pageSizeOptions,
+  //   handlePageSizeChange,
+  // }) => {
+  //   return (
+  //     <>
+  //       <div className="page-total-page">
+  //         {startIndex + 1} - {endIndex} / {totalUser}
+  //       </div>
+  //       <Select
+  //         className="select-page"
+  //         value={pagination.pageSize.toString()}
+  //         onChange={handlePageSizeChange}
+  //       >
+  //         {pageSizeOptions.map((pageSize) => (
+  //           <Select.Option key={pageSize} value={pageSize}>
+  //             {pageSize} / trang
+  //           </Select.Option>
+  //         ))}
+  //       </Select>
+  //     </>
+  //   );
+  // };
 
   const deleteUser = async (user_id, username) => {
     const url = `http://wlp.howizbiz.com/api/users/${user_id}`;
@@ -313,43 +323,13 @@ const UserManagement = () => {
 
     try {
       await axios.delete(url, { headers });
-      getUser();
+      getUser(urlApi);
       message.success(`Xóa thông tin người dùng "${username}" thành công`);
     } catch (error) {
       console.log(error);
       message.error("Đã xảy ra lỗi khi xóa thông tin người dùng");
     }
   };
-
-  // search
-  const handleSearch = async (value) => {
-    setSearchValue(value);
-    const url = `http://wlp.howizbiz.com/api/users?paginate=true&page=1&perpage=10&with=roles,createdBy,provinces&search=${value}`;
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    };
-    try {
-      const listUserData = await axios.get(url, { headers });
-      // const listUserData = await getData(url, headers);
-      console.log(listUserData);
-      if (listUserData) {
-        setSearchResults(listUserData.data.list);
-        setTotalUser(listUserData.data.pagination.count);
-        setPagination((prevPagination) => ({
-          ...prevPagination,
-          total: listUserData.data.pagination.count,
-        }));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    handleSearch(searchValue);
-  }, [searchValue]);
-  const dataSource = searchValue ? searchResults : newData;
 
   return (
     <div className="user-management">
@@ -360,16 +340,7 @@ const UserManagement = () => {
         <h3>Danh sách người dùng</h3>
       </div>
 
-      <div className="search-bar">
-        <Input
-          size="large"
-          className="input-search-bar"
-          placeholder="Tìm kiếm theo tên hoặc số điện thoại"
-          prefix={<RiSearchLine />}
-          // onSearch={(value) => handleSearch(value)}
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
+      <div className="flex">
         <Button
           className="btn btn-add-new"
           size="large"
@@ -383,32 +354,35 @@ const UserManagement = () => {
         >
           Thêm mới
         </Button>
+        <Filter setFilterData={setFilterData} />
       </div>
-
       <Table
-        dataSource={dataSource}
-        columns={columns}
-        pagination={pagination}
-        onChange={handleTableChange}
-        summary={(pageData) => (
-          <TableSummary
-            startIndex={(pagination.current - 1) * pagination.pageSize}
-            endIndex={Math.min(
-              (pagination.current - 1) * pagination.pageSize +
-                pagination.pageSize,
-              totalUser
-            )}
-            totalUser={totalUser}
-            pageSizeOptions={pagination.pageSizeOptions}
-            handlePageSizeChange={handlePageSizeChange}
-          />
-        )}
+        dataSource={newData}
+        columns={columns.filter((column) => column.visible)}
+        pagination={false}
       />
+      <br />
+
+      <Row className="page-size">
+        <Pagination
+          total={totalUser}
+          showTotal={(total, range) => `${range[0]}-${range[1]} / ${total} `}
+          onChange={handleCurrentPage}
+          current={currentPage}
+          pageSize={pageSize}
+        />
+        <Select value={pageSize.toString()} onChange={handlePageSizeChange}>
+          <Select.Option value="5">5</Select.Option>
+          <Select.Option value="10">10</Select.Option>
+          <Select.Option value="15">15</Select.Option>
+          <Select.Option value="20">20</Select.Option>
+        </Select>
+      </Row>
+
       <ModalAddNew
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
-        resetData={getUser}
-        // selectUser={selectedUser}
+        resetData={handleAddUserSuccess}
         isUpdate={isUpdate}
         initialValues={currentUser}
         handleUpdateUser={handleUpdateUser}

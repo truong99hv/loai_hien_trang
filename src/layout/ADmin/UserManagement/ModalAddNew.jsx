@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Checkbox, Input, Modal, Form, message } from "antd";
+import { Checkbox, Input, Modal, Form, message, Button } from "antd";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -15,7 +15,7 @@ const ModalAddNew = ({
   handleUpdateUser,
 }) => {
   const [roles, setRoles] = useState([]);
-  const [currentUser, setCurrentUser] = useState({});
+
   const [form] = Form.useForm();
   const token = localStorage.getItem("user-token");
 
@@ -52,7 +52,7 @@ const ModalAddNew = ({
     form.setFieldsValue(initialValues);
   }, [form, initialValues]);
 
-  const handleFormSubmit = async (values) => {
+  const handleFormSubmit = async (values, api) => {
     const url = "http://wlp.howizbiz.com/api/users";
     const headers = {
       "Content-Type": "application/json",
@@ -60,52 +60,19 @@ const ModalAddNew = ({
     };
 
     try {
-      const response = await axios.post(url, values, { headers });
-      console.log("Thêm mới người dùng thành công:", response.data);
+      await axios.post(url, values, { headers });
       setIsModalVisible(false);
       message.success("Thêm mới người dùng thành công");
       const newUser = { ...values };
       handleAddNewUser(newUser);
-      resetData();
+      if (resetData) {
+        resetData();
+        console.log(resetData);
+      }
     } catch (error) {
       console.error("Lỗi khi thêm mới người dùng:", error);
     }
   };
-
-  // const updateUser = async (user_id, userData) => {
-  //   const url = `http://wlp.howizbiz.com/api/users/${user_id}`;
-  //   const headers = {
-  //     "Content-Type": "application/json",
-  //     Authorization: `Bearer ${token}`,
-  //   };
-  //   try {
-  //     const response = await axios.put(url, userData, { headers });
-  //     return response.data;
-  //   } catch (error) {
-  //     throw new Error("Failed to update user");
-  //   }
-  // };
-
-  // const handleUpdateUser = async (user_id, values, username) => {
-  //   try {
-  //     const { name, email, mobile, role_ids, provinces, khubaoton } = values;
-  //     const userData = {
-  //       name,
-  //       email,
-  //       mobile,
-  //       role_ids,
-  //       provinces,
-  //       khubaoton,
-  //     };
-  //     await updateUser(selectedUserId, userData);
-  //     setIsModalVisible(false);
-  //     message.success(`Cập nhật thông tin người dùng "${username}" thành công`);
-  //     resetData();
-  //   } catch (error) {
-  //     console.log(error);
-  //     message.error("Đã xảy ra lỗi khi cập nhật thông tin người dùng");
-  //   }
-  // };
 
   // const validationSchema = Yup.object().shape({
   //   displayName: Yup.string().required("Vui lòng nhập tên hiển thị"),
@@ -250,6 +217,9 @@ const ModalAddNew = ({
             </Checkbox>
           ))}
         </Form.Item>
+        {/* <Form.Item>
+          <Button htmlType="submit">add</Button>
+        </Form.Item> */}
       </Form>
     </Modal>
   );

@@ -146,7 +146,7 @@
 }
 
 .menu-items {
-  height: 91vh;
+  height: 100%;
 }
 
 /* user-management */
@@ -180,12 +180,6 @@
   margin-top: 30px;
   display: flex;
   justify-content: space-between;
-}
-
-.input-search-bar {
-  width: 75%;
-  color: #9c9393;
-  outline: none;
 }
 
 .role-user {
